@@ -69,7 +69,7 @@
       .to('.hero-khattak', { xPercent: 9, duration: 0.38 }, 0.12)
       .to('.hero-portrait-inner', { scale: 1.16, duration: 0.7 }, 0.1)
       .to('.hero-portrait-inner', { yPercent: -18, duration: 0.45 }, 0.35)
-      .to(['.hero-top', '.hero-hook', '.hero-supporting'], { opacity: 0, y: -18, duration: 0.34 }, 0.2)
+      .to(['.hero-top', '.hero-supporting'], { opacity: 0, y: -18, duration: 0.34 }, 0.2)
       .to(rail, { x: 28, opacity: 0, duration: 0.34 }, 0.2)
       .to('.hero-night', { opacity: 1, duration: 0.27 }, 0.35)
       .to('.hero .day-copy', { opacity: 0, duration: 0.27 }, 0.35)
