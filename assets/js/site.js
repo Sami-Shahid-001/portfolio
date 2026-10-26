@@ -138,6 +138,37 @@
     history.replaceState(null, '', `#${id}`);
   });
 
+  /* ---------------- email links ----------------
+     A bare mailto: does nothing when no mail app is set up, so every email link opens a
+     Gmail compose window (keeping any subject/body) and copies the address as a fallback. */
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.setAttribute('role', 'status');
+  document.body.appendChild(toast);
+  let toastTimer = 0;
+  const showToast = (msg) => {
+    toast.textContent = msg;
+    toast.classList.add('is-on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-on'), 3200);
+  };
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="mailto:"]');
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    const url = new URL(a.getAttribute('href'));
+    const to = decodeURIComponent(url.pathname);
+    const params = new URLSearchParams({ view: 'cm', fs: '1', to });
+    if (url.searchParams.get('subject')) params.set('su', url.searchParams.get('subject'));
+    if (url.searchParams.get('body')) params.set('body', url.searchParams.get('body'));
+    const win = window.open(`https://mail.google.com/mail/?${params}`, '_blank', 'noopener');
+    const copied = navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(to).then(() => true, () => false) : Promise.resolve(false);
+    copied.then((ok) => {
+      if (!win) window.location.href = a.getAttribute('href'); // pop-up blocked: fall back to the mail app
+      showToast(ok ? `${to} copied to clipboard` : to);
+    });
+  });
+
   /* ---------------- mobile menu ---------------- */
   const menuBtn = document.querySelector('.menu-btn');
   const menuPanel = document.getElementById('site-menu');

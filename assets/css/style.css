@@ -660,6 +660,10 @@ html.lenis,html.lenis body{height:auto}
 .js .distinction-word>span{transform:translateY(105%)}
 .js .grade-item .grade{transform:translateY(100%)}
 
+/* email toast */
+.toast{position:fixed;left:50%;bottom:calc(1.5rem + var(--safe-bottom));z-index:90;max-width:calc(100vw - 2rem);transform:translate(-50%,16px);opacity:0;pointer-events:none;border-radius:999px;background:var(--color-ink);color:var(--color-canvas);padding:.75rem 1.25rem;font-size:.875rem;font-weight:500;box-shadow:0 18px 40px -18px #000a;transition:opacity .4s var(--ease-out-expo),transform .5s var(--ease-out-expo)}
+.toast.is-on{opacity:1;transform:translate(-50%,0)}
+
 /* scripts unavailable: unpin the scenes and stack their slides */
 .no-js .scene{height:auto;margin-top:0}
 .no-js .scene-stage{position:relative;height:auto;overflow:visible;padding-block:5rem}
