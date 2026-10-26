@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Neural Networks from Scratch — Samiullah Shahid</title>
-<meta name="description" content="Case study: neural networks and linear regression implemented from scratch in NumPy — forward pass, backpropagation, gradient descent and an MNIST app.">
+<title>Neural Networks from Scratch | Samiullah Shahid</title>
+<meta name="description" content="Case study: neural networks and linear regression implemented from scratch in NumPy, forward pass, backpropagation, gradient descent and an MNIST app.">
 <meta name="theme-color" content="#e4e3df">
-<meta property="og:title" content="Neural Networks from Scratch — Samiullah Shahid">
-<meta property="og:description" content="Case study: neural networks and linear regression implemented from scratch in NumPy — forward pass, backpropagation, gradient descent and an MNIST app.">
+<meta property="og:title" content="Neural Networks from Scratch | Samiullah Shahid">
+<meta property="og:description" content="Case study: neural networks and linear regression implemented from scratch in NumPy, forward pass, backpropagation, gradient descent and an MNIST app.">
 <link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="../assets/img/favicon-48.png" sizes="48x48" type="image/png">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
@@ -63,7 +63,7 @@
             <img src="../assets/img/hero-logo.png" alt="" width="46" height="46" class="brand-mark">
             <span class="brand-sep" aria-hidden="true"></span>
             <span class="brand-text"><span class="brand-name">Samiullah Shahid</span><span class="brand-role">AI/ML Engineer &amp; Data Scientist</span></span>
-            <span class="sr-only">— home</span>
+            <span class="sr-only">home</span>
           </a>
         </div>
         <ul class="nav-links">
@@ -141,10 +141,10 @@
       </div>
       <dl class="case-specs">
           <div class="case-spec case-intro"><dt>Context</dt><dd>Self-directed study alongside Andrew Ng’s courses</dd></div>
-          <div class="case-spec case-intro"><dt>Period</dt><dd>December 2025 — May 2026</dd></div>
+          <div class="case-spec case-intro"><dt>Period</dt><dd>December 2025 to May 2026</dd></div>
           <div class="case-spec case-intro"><dt>Role</dt><dd>Everything</dd></div>
           <div class="case-spec case-intro"><dt>Shape</dt><dd>Three repositories, one progression</dd></div>
-          <div class="case-spec case-intro"><dt>Frameworks</dt><dd>None — NumPy only</dd></div>
+          <div class="case-spec case-intro"><dt>Frameworks</dt><dd>None, NumPy only</dd></div>
           <div class="case-spec case-intro"><dt>Visibility</dt><dd>Public repositories</dd></div>
       </dl>
     </div>
@@ -188,8 +188,8 @@
           <p class="eyebrow sec-num reveal-up">02<i></i></p>
           <h2 class="sec-title reveal-up">Linear regression</h2>
           <div class="sec-content">
-            <ol class="fig fig-numbered reveal-up"><li>Generate a synthetic dataset with a known linear relationship plus noise.</li><li>Normalise every feature — and the target — by mean and standard deviation.</li><li>Compute the mean-squared-error cost for the current weights.</li><li>Take the gradient and update the weights with gradient descent until the cost converges.</li></ol>
-            <p>Multivariate regression first, because every later idea — a cost, its gradient, a learning rate, convergence — appears here in its simplest form.</p>
+            <ol class="fig fig-numbered reveal-up"><li>Generate a synthetic dataset with a known linear relationship plus noise.</li><li>Normalise every feature, and the target, by mean and standard deviation.</li><li>Compute the mean-squared-error cost for the current weights.</li><li>Take the gradient and update the weights with gradient descent until the cost converges.</li></ol>
+            <p>Multivariate regression first, because every later idea, a cost, its gradient, a learning rate, convergence, appears here in its simplest form.</p>
           </div>
         </section>
         <section class="case-sec" id="s03-a-dense-network-on-spirals">
@@ -197,7 +197,7 @@
           <p class="eyebrow sec-num reveal-up">03<i></i></p>
           <h2 class="sec-title reveal-up">A dense network on spirals</h2>
           <div class="sec-content">
-            <p>Next, a multi-class classifier on a spiral dataset that no straight line can separate: dense layers, ReLU and softmax activations and categorical cross-entropy loss, each written first in raw Python and then vectorised with NumPy. The focus was forward-pass correctness — the foundation the backward pass is built on.</p>
+            <p>Next, a multi-class classifier on a spiral dataset that no straight line can separate: dense layers, ReLU and softmax activations and categorical cross-entropy loss, each written first in raw Python and then vectorised with NumPy. The focus was forward-pass correctness, the foundation the backward pass is built on.</p>
           </div>
         </section>
         <section class="case-sec" id="s04-mnist-with-backpropagation">
@@ -205,9 +205,9 @@
           <p class="eyebrow sec-num reveal-up">04<i></i></p>
           <h2 class="sec-title reveal-up">MNIST with backpropagation</h2>
           <div class="sec-content">
-            <figure class="fig reveal-up"><div class="fig-flow"><div class="flow-node "><b>28×28 image</b><small>Flattened to 784</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node acc"><b>Hidden layer</b><small>128 · ReLU</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Output layer</b><small>10 · softmax</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Prediction</b><small>Digit 0–9</small></div></div><figcaption class="fig-caption">784 → 128 → 10</figcaption></figure>
+            <figure class="fig reveal-up"><div class="fig-flow"><div class="flow-node "><b>28×28 image</b><small>Flattened to 784</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node acc"><b>Hidden layer</b><small>128 · ReLU</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Output layer</b><small>10 · softmax</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Prediction</b><small>Digit 0 to 9</small></div></div><figcaption class="fig-caption">784 → 128 → 10</figcaption></figure>
             <p>Then the full loop on MNIST: 70,000 handwritten digits, 60,000 for training and 10,000 for testing. Forward propagation, backpropagation, cross-entropy loss, weight initialisation and gradient-descent updates are all manual matrix operations.</p>
-            <p>The trained weights are serialised with pickle and served through a Streamlit app: upload a digit, see the prediction — an end-to-end machine-learning pipeline with no framework anywhere in it.</p>
+            <p>The trained weights are serialised with pickle and served through a Streamlit app: upload a digit, see the prediction, an end-to-end machine-learning pipeline with no framework anywhere in it.</p>
           </div>
         </section>
         <section class="case-sec" id="s05-what-it-taught">
@@ -215,7 +215,7 @@
           <p class="eyebrow sec-num reveal-up">05<i></i></p>
           <h2 class="sec-title reveal-up">What it taught</h2>
           <div class="sec-content">
-            <ol class="fig fig-numbered reveal-up"><li>Most bugs are shape bugs — print the shapes before you print anything else.</li><li>Softmax and cross-entropy together have a beautifully simple gradient.</li><li>Normalising inputs is the difference between converging and wandering.</li><li>Logits, probabilities and predictions are three different things, and confusing them is easy.</li></ol>
+            <ol class="fig fig-numbered reveal-up"><li>Most bugs are shape bugs, print the shapes before you print anything else.</li><li>Softmax and cross-entropy together have a beautifully simple gradient.</li><li>Normalising inputs is the difference between converging and wandering.</li><li>Logits, probabilities and predictions are three different things, and confusing them is easy.</li></ol>
           </div>
         </section>
     </div>
@@ -230,7 +230,7 @@
       </div>
       <a class="next-link reveal-up" href="n8n-automation.html">
         <span class="next-title"><span>n8n AI Automation Pipelines</span><span class="next-arrow" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></span>
-        <p class="next-sub">Ten-plus production workflows that take repetitive work off people — content creation, inbox triage, customer support and knowledge retrieval — running reliably across multiple clients.</p>
+        <p class="next-sub">Ten-plus production workflows that take repetitive work off people, content creation, inbox triage, customer support and knowledge retrieval, running reliably across multiple clients.</p>
       </a>
       <div class="next-foot">
         <a class="btn btn-night-ghost" href="../index.html#work"><span>All selected work</span></a>

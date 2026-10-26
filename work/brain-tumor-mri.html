@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Brain Tumour MRI Classification — Samiullah Shahid</title>
-<meta name="description" content="Case study: four-class brain tumour MRI classification — a custom CNN baseline versus transfer learning, evaluated on unseen scans.">
+<title>Brain Tumour MRI Classification | Samiullah Shahid</title>
+<meta name="description" content="Case study: four-class brain tumour MRI classification, a custom CNN baseline versus transfer learning, evaluated on unseen scans.">
 <meta name="theme-color" content="#e4e3df">
-<meta property="og:title" content="Brain Tumour MRI Classification — Samiullah Shahid">
-<meta property="og:description" content="Case study: four-class brain tumour MRI classification — a custom CNN baseline versus transfer learning, evaluated on unseen scans.">
+<meta property="og:title" content="Brain Tumour MRI Classification | Samiullah Shahid">
+<meta property="og:description" content="Case study: four-class brain tumour MRI classification, a custom CNN baseline versus transfer learning, evaluated on unseen scans.">
 <link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="../assets/img/favicon-48.png" sizes="48x48" type="image/png">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
@@ -63,7 +63,7 @@
             <img src="../assets/img/hero-logo.png" alt="" width="46" height="46" class="brand-mark">
             <span class="brand-sep" aria-hidden="true"></span>
             <span class="brand-text"><span class="brand-name">Samiullah Shahid</span><span class="brand-role">AI/ML Engineer &amp; Data Scientist</span></span>
-            <span class="sr-only">— home</span>
+            <span class="sr-only">home</span>
           </a>
         </div>
         <ul class="nav-links">
@@ -136,7 +136,7 @@
           <span class="line"><span class="line-inner">MRI</span></span>
           <span class="line"><span class="line-inner">Classification</span></span>
         </h1>
-        <p class="case-lead case-intro">Two models and one honest lesson. A custom CNN looked excellent on validation and generalised poorly; transfer learning closed part of that gap — from 63% to 74% on MRI scans neither model had seen.</p>
+        <p class="case-lead case-intro">Two models and one honest lesson. A custom CNN looked excellent on validation and generalised poorly; transfer learning closed part of that gap, from 63% to 74% on MRI scans neither model had seen.</p>
         <p class="eyebrow muted case-intro" style="margin-top:1.25rem">Public repositories · deployed with Streamlit</p>
         <div class="case-links case-intro"><a class="btn btn-dark" href="https://github.com/Sami-Shahid-001/brain-tumor-classification-mri-transfer-learning-cnn" target="_blank" rel="noopener noreferrer"><svg class="btn-lead-icon"><use href="#i-github"/></svg><span>Transfer learning repo</span><svg><use href="#i-arrow"/></svg></a><a class="btn btn-outline" href="https://github.com/Sami-Shahid-001/brain-tumor-classification-mri-custom-cnn" target="_blank" rel="noopener noreferrer"><svg class="btn-lead-icon"><use href="#i-github"/></svg><span>Custom CNN repo</span><svg><use href="#i-arrow"/></svg></a></div>
       </div>
@@ -144,7 +144,7 @@
           <div class="case-spec case-intro"><dt>Context</dt><dd>Independent deep-learning project</dd></div>
           <div class="case-spec case-intro"><dt>Task</dt><dd>Four-class MRI classification</dd></div>
           <div class="case-spec case-intro"><dt>Period</dt><dd>May 2026</dd></div>
-          <div class="case-spec case-intro"><dt>Role</dt><dd>Everything — data, models, evaluation, deployment</dd></div>
+          <div class="case-spec case-intro"><dt>Role</dt><dd>Everything: data, models, evaluation, deployment</dd></div>
           <div class="case-spec case-intro"><dt>Shape</dt><dd>Two repositories, one comparison</dd></div>
           <div class="case-spec case-intro"><dt>Status</dt><dd>Complete · deployed with Streamlit</dd></div>
           <div class="case-spec case-intro"><dt>Visibility</dt><dd>Public repositories</dd></div>
@@ -186,7 +186,7 @@
           <div class="sec-content">
             <p>Classify a brain MRI scan into one of four classes: glioma, meningioma, pituitary tumour, or no tumour. Medical imaging datasets are small and uneven, which makes it easy to build a model that scores well on its own validation split and badly on anything else.</p>
             <div class="fig fig-chips reveal-up"><span>Glioma</span><span>Meningioma</span><span>Pituitary</span><span>No tumour</span></div>
-            <p>So the goal was never just accuracy. It was accuracy on scans the model had genuinely never seen — and an honest account of where it fails.</p>
+            <p>So the goal was never just accuracy. It was accuracy on scans the model had genuinely never seen, and an honest account of where it fails.</p>
           </div>
         </section>
         <section class="case-sec" id="s02-a-custom-cnn-first">
@@ -194,9 +194,9 @@
           <p class="eyebrow sec-num reveal-up">02<i></i></p>
           <h2 class="sec-title reveal-up">A custom CNN first</h2>
           <div class="sec-content">
-            <p>I started from scratch to understand what a CNN actually learns. Images were resized to 128×128, converted to RGB and normalised to the 0–1 range; the network grew to six convolution blocks with max pooling, global average pooling instead of flattening, a dense layer with 0.3 dropout and a four-way softmax — about 247,000 trainable parameters.</p>
+            <p>I started from scratch to understand what a CNN actually learns. Images were resized to 128×128, converted to RGB and normalised to the 0 to 1 range; the network grew to six convolution blocks with max pooling, global average pooling instead of flattening, a dense layer with 0.3 dropout and a four-way softmax, about 247,000 trainable parameters.</p>
             <figure class="fig reveal-up"><div class="fig-flow"><div class="flow-node "><b>MRI scan</b><small>128×128 RGB, normalised</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node acc"><b>6 conv blocks</b><small>Conv2D + max pooling</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Global avg pool</b><small>Instead of Flatten()</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Dense + dropout</b><small>Dropout 0.3</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Softmax</b><small>Four classes</small></div></div><figcaption class="fig-caption">The custom architecture</figcaption></figure>
-            <p>One detail is worth admitting: the network started with three blocks, and re-running notebook cells duplicated layers in memory, quietly producing a deeper model. Noticing that — and deciding deliberately what the architecture should be — was its own lesson.</p>
+            <p>One detail is worth admitting: the network started with three blocks, and re-running notebook cells duplicated layers in memory, quietly producing a deeper model. Noticing that, and deciding deliberately what the architecture should be, was its own lesson.</p>
           </div>
         </section>
         <section class="case-sec" id="s03-where-it-broke">
@@ -204,8 +204,8 @@
           <p class="eyebrow sec-num reveal-up">03<i></i></p>
           <h2 class="sec-title reveal-up">Where it broke</h2>
           <div class="sec-content">
-            <div class="fig fig-metrics reveal-up"><div class="fig-metric"><b>92–93%</b><span>Training accuracy</span></div><div class="fig-metric"><b>89–90%</b><span>Validation accuracy</span></div><div class="fig-metric"><b>63%</b><span>Unseen test accuracy</span></div><div class="fig-metric"><b>Glioma</b><span>Hardest class</span></div></div>
-            <p>Validation accuracy said the model was nearly done. Unseen scans said otherwise: performance fell to about 63%, with glioma confused most often — its appearance overlaps with the other tumour types more than theirs overlap with each other.</p>
+            <div class="fig fig-metrics reveal-up"><div class="fig-metric"><b>92 to 93%</b><span>Training accuracy</span></div><div class="fig-metric"><b>89 to 90%</b><span>Validation accuracy</span></div><div class="fig-metric"><b>63%</b><span>Unseen test accuracy</span></div><div class="fig-metric"><b>Glioma</b><span>Hardest class</span></div></div>
+            <p>Validation accuracy said the model was nearly done. Unseen scans said otherwise: performance fell to about 63%, with glioma confused most often, its appearance overlaps with the other tumour types more than theirs overlap with each other.</p>
           </div>
         </section>
         <section class="case-sec" id="s04-transfer-learning">
@@ -222,8 +222,8 @@
           <p class="eyebrow sec-num reveal-up">05<i></i></p>
           <h2 class="sec-title reveal-up">Results</h2>
           <div class="sec-content">
-            <div class="fig fig-table-wrap reveal-up"><table class="fig-table"><thead><tr><th>Model</th><th>Training</th><th>Validation</th><th>Unseen test</th></tr></thead><tbody><tr><td>Custom CNN</td><td>~92–93%</td><td>~89–90%</td><td>~63%</td></tr><tr class="hl"><td>Transfer learning</td><td>~94–96%</td><td>~90%</td><td>~74%</td></tr></tbody></table></div>
-            <p>The validation numbers are almost identical. The difference only appears on unseen data — which is exactly why it had to be measured there. An eleven-point improvement came from better features, not a better-looking validation curve.</p>
+            <div class="fig fig-table-wrap reveal-up"><table class="fig-table"><thead><tr><th>Model</th><th>Training</th><th>Validation</th><th>Unseen test</th></tr></thead><tbody><tr><td>Custom CNN</td><td>~92 to 93%</td><td>~89 to 90%</td><td>~63%</td></tr><tr class="hl"><td>Transfer learning</td><td>~94 to 96%</td><td>~90%</td><td>~74%</td></tr></tbody></table></div>
+            <p>The validation numbers are almost identical. The difference only appears on unseen data, which is exactly why it had to be measured there. An eleven-point improvement came from better features, not a better-looking validation curve.</p>
           </div>
         </section>
         <section class="case-sec" id="s06-deployment">
@@ -231,7 +231,7 @@
           <p class="eyebrow sec-num reveal-up">06<i></i></p>
           <h2 class="sec-title reveal-up">Deployment</h2>
           <div class="sec-content">
-            <p>Both models were deployed as Streamlit apps: upload a scan, get class probabilities back in real time. Testing in the app on real images exposed weaknesses that never showed up in the notebook — which is the main reason to deploy a learning project at all.</p>
+            <p>Both models were deployed as Streamlit apps: upload a scan, get class probabilities back in real time. Testing in the app on real images exposed weaknesses that never showed up in the notebook, which is the main reason to deploy a learning project at all.</p>
           </div>
         </section>
         <section class="case-sec" id="s07-what-holds-and-what-does-not">
@@ -240,7 +240,7 @@
           <h2 class="sec-title reveal-up">What holds, and what does not</h2>
           <div class="sec-content">
             <p>What holds: the improvement on unseen data is real and reproducible on that test set, and the comparison is like-for-like.</p>
-            <p>What does not: 74% is not clinical-grade, glioma is still the weakest class, and the next steps are clear — a larger and more varied dataset, augmentation, hyperparameter search and saliency maps that show what the model is looking at. This is a learning project, not a diagnostic tool.</p>
+            <p>What does not: 74% is not clinical-grade, glioma is still the weakest class, and the next steps are clear, a larger and more varied dataset, augmentation, hyperparameter search and saliency maps that show what the model is looking at. This is a learning project, not a diagnostic tool.</p>
           </div>
         </section>
     </div>
@@ -255,7 +255,7 @@
       </div>
       <a class="next-link reveal-up" href="datapulse.html">
         <span class="next-title"><span>DataPulse Analytics Platform</span><span class="next-arrow" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></span>
-        <p class="next-sub">A full-stack analytics platform that turns raw eCommerce CSVs into a cleaned PostgreSQL model, then into KPI dashboards and a sales-forecasting module — built iteratively by a team of three.</p>
+        <p class="next-sub">A full-stack analytics platform that turns raw eCommerce CSVs into a cleaned PostgreSQL model, then into KPI dashboards and a sales-forecasting module, built iteratively by a team of three.</p>
       </a>
       <div class="next-foot">
         <a class="btn btn-night-ghost" href="../index.html#work"><span>All selected work</span></a>

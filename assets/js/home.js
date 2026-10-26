@@ -290,7 +290,7 @@
         return false;
       };
       const now = performance.now();
-      // while a step is animating, nothing may interrupt it — including input from outside the scene.
+      // while a step is animating, nothing may interrupt it, including input from outside the scene.
       // A separate gesture arriving now (a second wheel click, a key press) is kept for when it ends.
       if (now < lockUntil) {
         if (isWheel && gesture === 'fresh') {
@@ -376,7 +376,8 @@
     const gutter = () => parseFloat(getComputedStyle($('.statement-label')).paddingLeft) || 24;
     gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: '.scene-statement', start: 'top -55%', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true },
+      // a longer runway plus a short trailing follow keeps the words gliding rather than racing
+      scrollTrigger: { trigger: '.scene-statement', start: 'top -55%', end: 'bottom bottom', scrub: 1.2, invalidateOnRefresh: true },
     })
       .fromTo(track, { x: () => gutter() }, { x: () => -(track.scrollWidth - window.innerWidth + gutter()), duration: 1 }, 0)
       .to('.statement-rule', { scaleX: 1, duration: 1 }, 0);

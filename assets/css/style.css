@@ -1,5 +1,5 @@
 /* =========================================================================
-   Samiullah Shahid — Portfolio
+   Samiullah Shahid : Portfolio
    Design system: warm paper + ink, night scenes, one bronze accent.
    ========================================================================= */
 
@@ -320,7 +320,7 @@ html.lenis,html.lenis body{height:auto}
 .scene-about{height:290vh;margin-top:-100vh;z-index:40;background:var(--color-night)}
 .scene-stats{height:340vh;margin-top:-100vh;z-index:30;background:var(--color-night)}
 .scene-work{height:540vh;margin-top:-100vh;z-index:20;background:var(--color-surface)}
-.scene-statement{height:320vh;margin-top:-100vh;z-index:10;background:var(--color-canvas)}
+.scene-statement{height:480vh;margin-top:-100vh;z-index:10;background:var(--color-canvas)}
 
 /* about */
 .about-stage{display:flex;flex-direction:column;justify-content:center}
@@ -520,6 +520,10 @@ html.lenis,html.lenis body{height:auto}
 @media (min-width:640px){.xp-body{gap:1.25rem}}
 .xp-logo{margin-top:.25rem;display:flex;width:3rem;height:3rem;flex-shrink:0;align-items:center;justify-content:center;overflow:hidden;border-radius:1rem;border:1px solid var(--color-line);background:var(--color-white);padding:.4rem;filter:grayscale(1);transition:filter .6s var(--ease-out-expo),transform .6s var(--ease-out-expo),box-shadow .6s var(--ease-out-expo)}
 .xp-logo svg{width:100%;height:100%}
+.xp-logo-img{padding:0}
+.xp-logo-img img{width:100%;height:100%;object-fit:cover}
+.xp-logo-pad{padding:.55rem}
+.xp-logo-pad img{object-fit:contain}
 @media (min-width:640px){.xp-logo{width:3.5rem;height:3.5rem}}
 .xp-text{min-width:0}
 .xp-role{font-size:var(--step-h3);line-height:1.08;font-weight:600;letter-spacing:-.03em;text-wrap:balance}

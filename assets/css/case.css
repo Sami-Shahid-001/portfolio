@@ -1,5 +1,5 @@
 /* =========================================================================
-   CASE STUDIES — loaded after style.css on /work/* pages
+   CASE STUDIES : loaded after style.css on /work/* pages
    ========================================================================= */
 .page-case{--p-accent:#1e2a35;--p-warm:#b0834f;--p-surface:#e7edf0;--p-cream:#f8f7f4;--p-muted:#73808b}
 .case-hero{position:relative;padding-top:calc(var(--nav-block) + clamp(2.5rem,7vh,5rem) + var(--safe-top));padding-bottom:clamp(2.5rem,6vh,4rem)}

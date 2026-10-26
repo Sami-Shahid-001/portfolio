@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>RideFlow — Samiullah Shahid</title>
+<title>RideFlow | Samiullah Shahid</title>
 <meta name="description" content="Case study: RideFlow, a ride-hailing platform with business rules in MySQL triggers, procedures, views and events behind an Express + JWT API.">
 <meta name="theme-color" content="#e4e3df">
-<meta property="og:title" content="RideFlow — Samiullah Shahid">
+<meta property="og:title" content="RideFlow | Samiullah Shahid">
 <meta property="og:description" content="Case study: RideFlow, a ride-hailing platform with business rules in MySQL triggers, procedures, views and events behind an Express + JWT API.">
 <link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="../assets/img/favicon-48.png" sizes="48x48" type="image/png">
@@ -63,7 +63,7 @@
             <img src="../assets/img/hero-logo.png" alt="" width="46" height="46" class="brand-mark">
             <span class="brand-sep" aria-hidden="true"></span>
             <span class="brand-text"><span class="brand-name">Samiullah Shahid</span><span class="brand-role">AI/ML Engineer &amp; Data Scientist</span></span>
-            <span class="sr-only">— home</span>
+            <span class="sr-only">home</span>
           </a>
         </div>
         <ul class="nav-links">
@@ -136,14 +136,14 @@
           <span class="line"><span class="line-inner">Ride-Hailing</span></span>
           <span class="line"><span class="line-inner">Platform</span></span>
         </h1>
-        <p class="case-lead case-intro">A multi-role ride-hailing platform where the business rules live in MySQL — triggers, stored procedures, views, scheduled events and grants — behind an Express API with JWT authentication.</p>
+        <p class="case-lead case-intro">A multi-role ride-hailing platform where the business rules live in MySQL, triggers, stored procedures, views, scheduled events and grants, behind an Express API with JWT authentication.</p>
         <p class="eyebrow muted case-intro" style="margin-top:1.25rem">Public repository · runs locally on MySQL 8</p>
         <div class="case-links case-intro"><a class="btn btn-dark" href="https://github.com/Sami-Shahid-001/Ride-Flow-Web-App" target="_blank" rel="noopener noreferrer"><svg class="btn-lead-icon"><use href="#i-github"/></svg><span>View repository</span><svg><use href="#i-arrow"/></svg></a></div>
       </div>
       <dl class="case-specs">
           <div class="case-spec case-intro"><dt>Context</dt><dd>Database Systems capstone · FAST-NUCES</dd></div>
           <div class="case-spec case-intro"><dt>Period</dt><dd>May 2026</dd></div>
-          <div class="case-spec case-intro"><dt>Role</dt><dd>Full-stack — schema, SQL, API and dashboards</dd></div>
+          <div class="case-spec case-intro"><dt>Role</dt><dd>Full-stack: schema, SQL, API and dashboards</dd></div>
           <div class="case-spec case-intro"><dt>Shape</dt><dd>Three dashboards over one relational core</dd></div>
           <div class="case-spec case-intro"><dt>Status</dt><dd>Complete · runs locally</dd></div>
           <div class="case-spec case-intro"><dt>Visibility</dt><dd>Public repository</dd></div>
@@ -181,7 +181,7 @@
           <p class="eyebrow sec-num reveal-up">01<i></i></p>
           <h2 class="sec-title reveal-up">The problem</h2>
           <div class="sec-content">
-            <p>The capstone had to demonstrate advanced SQL, not CRUD. Ride-hailing is a good domain for that: it has money, state transitions, ratings, roles and time — rules that are safest when they live next to the data rather than in whichever API route happens to remember them.</p>
+            <p>The capstone had to demonstrate advanced SQL, not CRUD. Ride-hailing is a good domain for that: it has money, state transitions, ratings, roles and time, rules that are safest when they live next to the data rather than in whichever API route happens to remember them.</p>
           </div>
         </section>
         <section class="case-sec" id="s02-the-shape">
@@ -199,7 +199,7 @@
           <h2 class="sec-title reveal-up">Rules in the database</h2>
           <div class="sec-content">
             <div class="fig fig-grid reveal-up"><div class="fig-card"><p class="eyebrow">7 triggers</p><ul><li>Driver earnings</li><li>Ratings</li><li>Ride history</li><li>Promo usage</li><li>Driver status</li></ul></div><div class="fig-card"><p class="eyebrow">Procedures</p><ul><li>sp_calculate_fare</li><li>sp_complete_ride</li><li>sp_driver_earnings_summary</li></ul></div><div class="fig-card"><p class="eyebrow">Views</p><ul><li>ActiveRidesView</li><li>TopDriversView</li><li>DriverLeaderboardView</li></ul></div><div class="fig-card"><p class="eyebrow">Events &amp; access</p><ul><li>Expire promos on a schedule</li><li>Archive old rides</li><li>Role-based GRANT / REVOKE</li></ul></div></div>
-            <p>Because completing a ride is a stored procedure and its side effects are triggers, earnings, ratings and history update the same way no matter which route — or which future client — touches the data.</p>
+            <p>Because completing a ride is a stored procedure and its side effects are triggers, earnings, ratings and history update the same way no matter which route, or which future client, touches the data.</p>
           </div>
         </section>
         <section class="case-sec" id="s04-what-it-delivers">
@@ -207,7 +207,7 @@
           <p class="eyebrow sec-num reveal-up">04<i></i></p>
           <h2 class="sec-title reveal-up">What it delivers</h2>
           <div class="sec-content">
-            <p>Live dashboards per role, surge pricing, automatic suspensions, promo reports and twenty standalone query demonstrations — the project that finished as one of the strongest database submissions of its term.</p>
+            <p>Live dashboards per role, surge pricing, automatic suspensions, promo reports and twenty standalone query demonstrations, the project that finished as one of the strongest database submissions of its term.</p>
           </div>
         </section>
         <section class="case-sec" id="s05-what-holds-and-what-does-not">
@@ -231,7 +231,7 @@
       </div>
       <a class="next-link reveal-up" href="oncopredict.html">
         <span class="next-title"><span>OncoPredict AI</span><span class="next-arrow" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></span>
-        <p class="next-sub">A breast-cancer diagnosis classifier made usable: a scikit-learn model behind a Flask API with consistent feature scaling, and a responsive JavaScript front end — deployed on Railway and Vercel.</p>
+        <p class="next-sub">A breast-cancer diagnosis classifier made usable: a scikit-learn model behind a Flask API with consistent feature scaling, and a responsive JavaScript front end, deployed on Railway and Vercel.</p>
       </a>
       <div class="next-foot">
         <a class="btn btn-night-ghost" href="../index.html#work"><span>All selected work</span></a>

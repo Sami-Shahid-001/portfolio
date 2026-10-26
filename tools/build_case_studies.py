@@ -24,13 +24,13 @@ PROJECTS = [
     nav_title="Ferra Voice AI Platform",
     category="Professional work",
     visibility="Private repository · no client data, routes or screens published",
-    lead="A no-code, white-label platform for AI phone agents — real-time voice on Deepgram, OpenAI and ElevenLabs, metered pay-as-you-go billing, and partner-branded sub-accounts that never reveal whose platform their clients are on.",
+    lead="A no-code, white-label platform for AI phone agents, real-time voice on Deepgram, OpenAI and ElevenLabs, metered pay-as-you-go billing, and partner-branded sub-accounts that never reveal whose platform their clients are on.",
     description="Case study: Ferra, a white-label, multi-tenant AI voice-agent platform with real-time calls, provider failover, per-leg metering and partner branding.",
     specs=[
       ("Context", "Syntrova AI Solutions · Professional work"),
       ("Replaces", "Hand-stitching telephony, speech, LLM and billing vendors for every client"),
-      ("Period", "May — July 2026"),
-      ("Role", "AI Engineer — voice-agent workflows, LLM and voice API integration, pricing engine, tenancy"),
+      ("Period", "May to July 2026"),
+      ("Role", "AI Engineer: voice-agent workflows, LLM and voice API integration, pricing engine, tenancy"),
       ("Shape", "Marketing site, multi-tenant dashboard and a voice gateway"),
       ("Status", "Production platform · under active development"),
       ("Visibility", "Private repository · case study only"),
@@ -40,48 +40,48 @@ PROJECTS = [
     links=[],
     sections=[
       ("The problem", [
-        ("p", "Businesses wanted a phone line that never goes to voicemail — an agent that answers, qualifies, books and follows up. Building one means stitching together telephony, streaming speech-to-text, a language model, a voice, a knowledge base, a CRM and a billing model that charges for every second of all of it."),
-        ("p", "Agencies wanted something one level up: to sell that capability to their own clients, under their own brand, at their own prices — without those clients ever learning which platform sits underneath."),
-        ("p", "So Ferra had to be two products at once. A no-code builder simple enough for a dental clinic, and a white-label, multi-tenant platform strict enough that one partner’s client can never see — or be billed for — another’s."),
+        ("p", "Businesses wanted a phone line that never goes to voicemail, an agent that answers, qualifies, books and follows up. Building one means stitching together telephony, streaming speech-to-text, a language model, a voice, a knowledge base, a CRM and a billing model that charges for every second of all of it."),
+        ("p", "Agencies wanted something one level up: to sell that capability to their own clients, under their own brand, at their own prices, without those clients ever learning which platform sits underneath."),
+        ("p", "So Ferra had to be two products at once. A no-code builder simple enough for a dental clinic, and a white-label, multi-tenant platform strict enough that one partner’s client can never see, or be billed for, another’s."),
         ("chips", ["Platform", "Partners", "Clients", "Agents", "Calls", "Contacts", "Knowledge", "Billing", "Audit"]),
       ]),
       ("The voice loop", [
         ("p", "Every call is a loop of turns. Caller audio streams into speech-to-text; endpointing decides whether the caller has finished or only paused; the transcript goes to the language model with the agent’s prompt, tools and retrieved knowledge; the reply streams into text-to-speech and back down the line."),
         ("flow", [("Caller", "Phone · SMS · WhatsApp", ""), ("Speech-to-text", "Deepgram, streaming", ""), ("Endpointing", "Finished, or paused?", ""), ("LLM + tools", "OpenAI · knowledge · CRM", "acc"), ("Text-to-speech", "ElevenLabs, streamed", ""), ("Caller", "Barge-in aware", "ghost")], "One turn of a call"),
         ("p", "The hard part is not any single step, it is the latency budget across all of them. A pause that feels natural in a chat window feels broken on a phone. Barge-in matters as much as speed: when the caller interrupts, playback stops and the loop listens again instead of talking over them."),
-        ("p", "My part was the agent workflows themselves — prompts, tool calls into CRMs and calendars, inbound and outbound call flows — and wiring the voice and LLM APIs to the platform’s REST endpoints so that a call could book an appointment, sync a contact and hand off to SMS or WhatsApp."),
+        ("p", "My part was the agent workflows themselves, prompts, tool calls into CRMs and calendars, inbound and outbound call flows, and wiring the voice and LLM APIs to the platform’s REST endpoints so that a call could book an appointment, sync a contact and hand off to SMS or WhatsApp."),
       ]),
       ("Providers that fail over", [
         ("p", "Each agent version points at a routing profile: a primary provider and an ordered list of fallbacks. A router owns failover, circuit breaking and a cost ceiling; adapters own each provider’s wire format. Neither knows about the other’s concerns, so adding a provider never means touching the call orchestrator."),
         ("flow", [("Agent version", "What the client built", ""), ("Routing profile", "Primary + fallbacks", ""), ("Router", "Failover · circuit breaker · cost ceiling", "acc"), ("Adapter", "One per provider", "")], "Which provider answers"),
-        ("p", "Credentials resolve through a vault in a fixed order — agent, then client, then partner, then the platform’s pooled keys. A partner can bring their own OpenAI or ElevenLabs account and every call on their tenants uses it; everyone else falls back to the pool."),
+        ("p", "Credentials resolve through a vault in a fixed order, agent, then client, then partner, then the platform’s pooled keys. A partner can bring their own OpenAI or ElevenLabs account and every call on their tenants uses it; everyone else falls back to the pool."),
         ("flow", [("Agent", "Most specific", ""), ("Client", "", ""), ("Partner", "Bring your own key", ""), ("Platform pool", "Fallback", "ghost")], "Whose key pays for the call"),
       ]),
       ("White-label by Host header", [
         ("p", "The dashboard resolves branding from the request’s Host header. A partner who points app.theirbrand.com at the platform gets their own logo, colours and product name on every screen, and their clients never see the word Ferra."),
-        ("p", "That single decision shaped the architecture. A partner’s domain cannot be a path under ferra.ai, and a framework’s base path is fixed at build time — so the marketing site and the product became separate applications on separate hostnames, sharing one session cookie on the parent domain."),
+        ("p", "That single decision shaped the architecture. A partner’s domain cannot be a path under ferra.ai, and a framework’s base path is fixed at build time, so the marketing site and the product became separate applications on separate hostnames, sharing one session cookie on the parent domain."),
         ("table", (["", "Platform brand", "Partner brand"], [
           ["Hostname", "app.ferra.ai", "app.partnerbrand.com"],
           ["Logo, colours, name", "Ferra", "The partner’s own"],
           ["Link back to the marketing site", "Shown", "Not rendered"],
           ["Prices clients see", "Platform rates", "Rates the partner sets"],
         ], 2)),
-        ("p", "The links between the two apps are deliberately asymmetric. Marketing links into the product generously; the product links back to marketing only for the platform’s own brand. On a partner’s domain that link is simply not rendered — one “Back to Ferra” would tell their clients whose platform they are on."),
+        ("p", "The links between the two apps are deliberately asymmetric. Marketing links into the product generously; the product links back to marketing only for the platform’s own brand. On a partner’s domain that link is simply not rendered, one “Back to Ferra” would tell their clients whose platform they are on."),
       ]),
       ("Tenants that cannot see each other", [
         ("p", "Isolation is enforced by construction rather than by remembering to add a WHERE clause. Every tenant-scoped query goes through a scoped database builder bound to the caller’s resolved tenant; the tenant predicate is appended by the builder and cannot be omitted or overridden."),
         ("numbered", [
-          "A row’s tenant is immutable — an update that tries to move it between tenants throws.",
+          "A row’s tenant is immutable, an update that tries to move it between tenants throws.",
           "Raw SQL against a tenant table must carry an explicit tenant token, or it does not run.",
           "A test fails the build if a new table with a tenant column is not registered with the guard.",
-          "Asking for another tenant’s call by id returns 404, not 403 — for you, the record does not exist.",
+          "Asking for another tenant’s call by id returns 404, not 403, for you, the record does not exist.",
           "Permissions are re-read from the membership on every request rather than trusted from the token, so revoking access lands within a minute instead of when a token happens to expire.",
         ]),
       ]),
       ("Paying by the minute", [
-        ("p", "Pricing is pay-as-you-go from a prepaid wallet. Every call is metered per leg — speech-to-text, language model and text-to-speech each carry their own usage and cost — so the call detail shows exactly where the money went, and a partner can set their own rates for their clients and keep the margin."),
+        ("p", "Pricing is pay-as-you-go from a prepaid wallet. Every call is metered per leg, speech-to-text, language model and text-to-speech each carry their own usage and cost, so the call detail shows exactly where the money went, and a partner can set their own rates for their clients and keep the margin."),
         ("metrics", [("Per leg", "STT · LLM · TTS costed separately"), ("Wallet", "Prepaid, pay-as-you-go"), ("Rebilling", "Partners set client rates"), ("Signed", "Usage bound to a ticket")]),
-        ("p", "Metering cannot be decided by the browser. The streaming test console reaches the voice agent through a small relay that holds no billing logic of its own: it forwards the session for authorisation and reports usage back to the dashboard, and each report is bound to a signed ticket issued at authorisation — so a turn cannot be billed to a different tenant."),
+        ("p", "Metering cannot be decided by the browser. The streaming test console reaches the voice agent through a small relay that holds no billing logic of its own: it forwards the session for authorisation and reports usage back to the dashboard, and each report is bound to a signed ticket issued at authorisation, so a turn cannot be billed to a different tenant."),
       ]),
       ("Knowledge, channels and integrations", [
         ("grid", [
@@ -92,12 +92,12 @@ PROJECTS = [
         ]),
       ]),
       ("The affiliate programme", [
-        ("p", "Research into the competitor Ferra was benchmarked against showed it had not built an affiliate programme at all — it resold a hosted one. Ferra’s was built in-house instead: affiliate accounts, an admin review queue, referral links and click tracking."),
+        ("p", "Research into the competitor Ferra was benchmarked against showed it had not built an affiliate programme at all, it resold a hosted one. Ferra’s was built in-house instead: affiliate accounts, an admin review queue, referral links and click tracking."),
         ("callout", ("Commission", "20% recurring, for the lifetime of every customer an affiliate refers.")),
         ("p", "Payouts are deliberately the last phase, gated on the billing integration, because commission arithmetic is only as trustworthy as the subscription events it is computed from."),
       ]),
       ("What the audit measured", [
-        ("p", "The platform carries its own audit harness that signs in as every seeded role and walks the product. Its last recorded run: 64 checks, 59 passed, 5 warnings, none failed. Four of the warnings are correct behaviour — partner-only pages redirecting for a client admin — and the fifth is the live voice leg, which the harness does not exercise."),
+        ("p", "The platform carries its own audit harness that signs in as every seeded role and walks the product. Its last recorded run: 64 checks, 59 passed, 5 warnings, none failed. Four of the warnings are correct behaviour, partner-only pages redirecting for a client admin, and the fifth is the live voice leg, which the harness does not exercise."),
         ("metrics", [("64", "Checks run"), ("59", "Passed"), ("0", "Failed"), ("335 ms", "p50 route time, dev server")]),
         ("p", "Those latencies are development-server numbers that include on-demand compilation. They are reported because they were measured, not because they represent production."),
       ]),
@@ -116,12 +116,12 @@ PROJECTS = [
     category="Private project",
     visibility="Private repositories · no customer data or screens published",
     lead="A vendor-agnostic, Shariah-compliant Buy Now, Pay Later platform for Pakistan. Paste any product link, get a Murabaha financing offer, and an agent completes the purchase on the merchant’s own site with a single-use virtual card. I built the three frontends people actually touch.",
-    description="Case study: SahulatKar, a Shariah-compliant, vendor-agnostic BNPL platform — marketing funnel, customer portal and admin console built against a six-service backend.",
+    description="Case study: SahulatKar, a Shariah-compliant, vendor-agnostic BNPL platform, marketing funnel, customer portal and admin console built against a six-service backend.",
     specs=[
       ("Context", "Pre-launch FinTech startup · Pakistan"),
       ("Replaces", "Merchant-locked, interest-based instalment plans"),
       ("Period", "2026"),
-      ("Role", "Frontend & product engineering — marketing site, customer portal, admin console"),
+      ("Role", "Frontend & product engineering: marketing site, customer portal, admin console"),
       ("Shape", "Three frontends over one gateway and six microservices"),
       ("Status", "Pre-launch · early-access signups open"),
       ("Visibility", "Private repositories · case study only"),
@@ -131,37 +131,37 @@ PROJECTS = [
     links=[],
     sections=[
       ("The problem", [
-        ("p", "Buy Now, Pay Later in Pakistan mostly works the way it does everywhere: a merchant integrates a provider, and you can only pay in instalments at the shops that did. Most conventional products also charge interest — which, for a large share of customers, rules them out entirely."),
-        ("p", "SahulatKar set out to remove both limits at once. Vendor-agnostic: any product, from any online store, with no merchant integration. Shariah-compliant: financing structured as Murabaha — a disclosed cost-plus sale — rather than an interest-bearing loan."),
+        ("p", "Buy Now, Pay Later in Pakistan mostly works the way it does everywhere: a merchant integrates a provider, and you can only pay in instalments at the shops that did. Most conventional products also charge interest, which, for a large share of customers, rules them out entirely."),
+        ("p", "SahulatKar set out to remove both limits at once. Vendor-agnostic: any product, from any online store, with no merchant integration. Shariah-compliant: financing structured as Murabaha, a disclosed cost-plus sale, rather than an interest-bearing loan."),
         ("chips", ["Any merchant", "No integration", "Murabaha", "Disclosed profit", "Virtual card", "Instalments"]),
       ]),
       ("How a purchase works", [
-        ("p", "A customer pastes the link to a product. The platform extracts it, prices a Murabaha offer, runs identity and credit checks, and has the customer sign two contracts in order — an agency agreement, then the Murabaha sale itself. Only then is a single-use virtual card issued, and a browser agent on the backend completes checkout on the merchant’s own page."),
+        ("p", "A customer pastes the link to a product. The platform extracts it, prices a Murabaha offer, runs identity and credit checks, and has the customer sign two contracts in order, an agency agreement, then the Murabaha sale itself. Only then is a single-use virtual card issued, and a browser agent on the backend completes checkout on the merchant’s own page."),
         ("flow", [("Product link", "Any online store", ""), ("Murabaha offer", "3 · 6 · 12 months", ""), ("KYC + credit", "Risk scoring, limits", ""), ("Two contracts", "Wakalah, then Murabaha", "acc"), ("Virtual card", "Single use", ""), ("Agent checkout", "On the merchant’s page", "ghost")], "From a pasted link to a placed order"),
         ("p", "Profit is disclosed rather than hidden in a rate: tiered at 2.5%, 7% and 12% for 3-, 6- and 12-month plans, targeting a consistent effective markup of roughly 4% a year."),
       ]),
       ("Six services, one door", [
-        ("p", "Behind the frontends sit six independent services. Frontends talk to exactly one of them — the gateway — which owns authentication, KYC orchestration, the order lifecycle, contracts and the admin back office."),
+        ("p", "Behind the frontends sit six independent services. Frontends talk to exactly one of them, the gateway, which owns authentication, KYC orchestration, the order lifecycle, contracts and the admin back office."),
         ("grid", [
           ("Gateway", ["The only public HTTP surface", "Auth, KYC, orders, contracts", "Admin back office and webhooks"]),
           ("Product service", ["URL to product extraction", "Murabaha pricing", "Autonomous checkout agent"]),
           ("Credit engine", ["Multi-layer risk scoring", "Credit limits and down payments", "Fraud and blacklist checks"]),
           ("Payments & ledger", ["Virtual cards, JazzCash, SafePay", "Double-entry bookkeeping", "Charity routing for late fees"]),
         ]),
-        ("p", "That boundary mattered for frontend work more than anything else. Every screen I built had one contract to honour — a catalogue of 400 gateway endpoints — instead of six services’ worth of internal APIs."),
+        ("p", "That boundary mattered for frontend work more than anything else. Every screen I built had one contract to honour, a catalogue of 400 gateway endpoints, instead of six services’ worth of internal APIs."),
       ]),
       ("Shariah rules, enforced in code", [
         ("numbered", [
           "The agency agreement must be signed before the Murabaha contract can even be generated.",
           "Contracts disclose the cost price and the profit amount explicitly.",
-          "Late fees are never revenue — they post to a charity liability and are disbursed, never recognised as income.",
+          "Late fees are never revenue, they post to a charity liability and are disbursed, never recognised as income.",
           "Prohibited categories are blocked at order time, twice: in the gateway and again in product extraction.",
           "Interface copy never says “interest”, “APR” or “loan repayment” where “profit”, “Murabaha instalment” or “financing” is accurate.",
         ]),
         ("p", "The last rule is the one the frontend owns completely. In a financing product, the words on the screen are part of the agreement the customer believes they are making."),
       ]),
       ("The marketing site and early-access funnel", [
-        ("p", "The first frontend had one job before the funding round: collect a thousand early-access signups. It is a Next.js 15 App Router site built mostly from server components, so almost no JavaScript ships for static content — with self-hosted fonts and no animation library at all. Every effect is a CSS keyframe or a scroll-driven view timeline."),
+        ("p", "The first frontend had one job before the funding round: collect a thousand early-access signups. It is a Next.js 15 App Router site built mostly from server components, so almost no JavaScript ships for static content, with self-hosted fonts and no animation library at all. Every effect is a CSS keyframe or a scroll-driven view timeline."),
         ("grid", [
           ("Pages", ["Landing page with interactive phone mock-ups", "Five “Why SahulatKar” pillar pages", "About, contact and a legal hub"]),
           ("Funnel", ["Early-access signup", "One-time email verification", "A separate affiliate signup"]),
@@ -170,28 +170,28 @@ PROJECTS = [
         ]),
       ]),
       ("The customer portal", [
-        ("p", "The second frontend — SahulatKar Bazaar — is where a customer pastes a link, reviews an offer, signs and manages instalments. It was built against a stand-in gateway: a dependency-free Node process holding orders, carts and sessions in memory, deployed as one always-on service so the whole journey could be demonstrated before the real backend was."),
+        ("p", "The second frontend, SahulatKar Bazaar, is where a customer pastes a link, reviews an offer, signs and manages instalments. It was built against a stand-in gateway: a dependency-free Node process holding orders, carts and sessions in memory, deployed as one always-on service so the whole journey could be demonstrated before the real backend was."),
         ("flow", [("Customer portal", "Next.js", ""), ("Stand-in gateway", "Node · in-memory · one process", "acc"), ("Real gateway", "Swapped by one environment variable", "ghost")], "Building ahead of the backend"),
         ("p", "Building against a mock is only honest if the mock matches the contract. It was written from the same endpoint catalogue and the backend’s own integration guide, so replacing it with the real gateway is a configuration change, not a rewrite."),
       ]),
       ("The admin console", [
-        ("p", "The third frontend is an operations console for a system that runs an autonomous agent buying real products on real websites — which fails in ways no human caused. Before building it, I rewrote its specification against reality: every screen grounded in the live gateway’s endpoints and nine backend audit documents, rather than a wishlist benchmarked from other BNPL products."),
+        ("p", "The third frontend is an operations console for a system that runs an autonomous agent buying real products on real websites, which fails in ways no human caused. Before building it, I rewrote its specification against reality: every screen grounded in the live gateway’s endpoints and nine backend audit documents, rather than a wishlist benchmarked from other BNPL products."),
         ("numbered", [
           "Twelve real admin roles, with every screen annotated for exactly who can see it and act on it.",
-          "Backend gaps flagged screen by screen — the interface degrades gracefully instead of inventing data.",
+          "Backend gaps flagged screen by screen, the interface degrades gracefully instead of inventing data.",
           "“Live” views are honest about polling: there is no push channel for admin screens, so the UI says how fresh its numbers are.",
           "Placeholders look different from facts. In a fintech console, an operator mistaking a hard-coded figure for a real one is the worst failure mode.",
         ]),
-        ("p", "The console itself is React, TypeScript and Vite — a dense, data-first interface closer to a bank’s back office than a marketing page."),
+        ("p", "The console itself is React, TypeScript and Vite, a dense, data-first interface closer to a bank’s back office than a marketing page."),
       ]),
       ("What the tests hold", [
-        ("p", "The backend carries a genuine end-to-end test that brings up the whole stack — real PostgreSQL, real Redis, real networking and a real browser against a bundled mock merchant — and walks a customer from registration to a verified, balanced ledger entry with no mocking at all."),
+        ("p", "The backend carries a genuine end-to-end test that brings up the whole stack, real PostgreSQL, real Redis, real networking and a real browser against a bundled mock merchant, and walks a customer from registration to a verified, balanced ledger entry with no mocking at all."),
         ("metrics", [("6", "Backend microservices"), ("400", "Gateway endpoints catalogued"), ("12", "Admin roles"), ("0", "Mocks in the end-to-end test")]),
-        ("p", "It is the most reliable reference for exact request and response shapes across the platform, and the frontends were checked against it. Building it surfaced real bugs that no mocked test could have caught — including a connection-pooler incompatibility that could silently drop financial postings."),
+        ("p", "It is the most reliable reference for exact request and response shapes across the platform, and the frontends were checked against it. Building it surfaced real bugs that no mocked test could have caught, including a connection-pooler incompatibility that could silently drop financial postings."),
       ]),
       ("What holds, and what does not", [
         ("p", "What holds: the three frontends are built against the real gateway contract, the Shariah wording rules are enforced in the interface, and the customer journey runs end to end against the stand-in gateway."),
-        ("p", "What does not, yet: SahulatKar is pre-launch. The customer portal is demonstrated against a mock that resets on every restart; admin screens that sit on backend gaps degrade rather than act; and whether contracts’ Shariah-board validation is backed by a recorded approval process is an open question on the backend — not something a frontend can settle."),
+        ("p", "What does not, yet: SahulatKar is pre-launch. The customer portal is demonstrated against a mock that resets on every restart; admin screens that sit on backend gaps degrade rather than act; and whether contracts’ Shariah-board validation is backed by a recorded approval process is an open question on the backend, not something a frontend can settle."),
       ]),
     ],
   ),
@@ -203,13 +203,13 @@ PROJECTS = [
     nav_title="Brain Tumour MRI Classification",
     category="Deep learning",
     visibility="Public repositories · deployed with Streamlit",
-    lead="Two models and one honest lesson. A custom CNN looked excellent on validation and generalised poorly; transfer learning closed part of that gap — from 63% to 74% on MRI scans neither model had seen.",
-    description="Case study: four-class brain tumour MRI classification — a custom CNN baseline versus transfer learning, evaluated on unseen scans.",
+    lead="Two models and one honest lesson. A custom CNN looked excellent on validation and generalised poorly; transfer learning closed part of that gap, from 63% to 74% on MRI scans neither model had seen.",
+    description="Case study: four-class brain tumour MRI classification, a custom CNN baseline versus transfer learning, evaluated on unseen scans.",
     specs=[
       ("Context", "Independent deep-learning project"),
       ("Task", "Four-class MRI classification"),
       ("Period", "May 2026"),
-      ("Role", "Everything — data, models, evaluation, deployment"),
+      ("Role", "Everything: data, models, evaluation, deployment"),
       ("Shape", "Two repositories, one comparison"),
       ("Status", "Complete · deployed with Streamlit"),
       ("Visibility", "Public repositories"),
@@ -221,16 +221,16 @@ PROJECTS = [
       ("The problem", [
         ("p", "Classify a brain MRI scan into one of four classes: glioma, meningioma, pituitary tumour, or no tumour. Medical imaging datasets are small and uneven, which makes it easy to build a model that scores well on its own validation split and badly on anything else."),
         ("chips", ["Glioma", "Meningioma", "Pituitary", "No tumour"]),
-        ("p", "So the goal was never just accuracy. It was accuracy on scans the model had genuinely never seen — and an honest account of where it fails."),
+        ("p", "So the goal was never just accuracy. It was accuracy on scans the model had genuinely never seen, and an honest account of where it fails."),
       ]),
       ("A custom CNN first", [
-        ("p", "I started from scratch to understand what a CNN actually learns. Images were resized to 128×128, converted to RGB and normalised to the 0–1 range; the network grew to six convolution blocks with max pooling, global average pooling instead of flattening, a dense layer with 0.3 dropout and a four-way softmax — about 247,000 trainable parameters."),
+        ("p", "I started from scratch to understand what a CNN actually learns. Images were resized to 128×128, converted to RGB and normalised to the 0 to 1 range; the network grew to six convolution blocks with max pooling, global average pooling instead of flattening, a dense layer with 0.3 dropout and a four-way softmax, about 247,000 trainable parameters."),
         ("flow", [("MRI scan", "128×128 RGB, normalised", ""), ("6 conv blocks", "Conv2D + max pooling", "acc"), ("Global avg pool", "Instead of Flatten()", ""), ("Dense + dropout", "Dropout 0.3", ""), ("Softmax", "Four classes", "")], "The custom architecture"),
-        ("p", "One detail is worth admitting: the network started with three blocks, and re-running notebook cells duplicated layers in memory, quietly producing a deeper model. Noticing that — and deciding deliberately what the architecture should be — was its own lesson."),
+        ("p", "One detail is worth admitting: the network started with three blocks, and re-running notebook cells duplicated layers in memory, quietly producing a deeper model. Noticing that, and deciding deliberately what the architecture should be, was its own lesson."),
       ]),
       ("Where it broke", [
-        ("metrics", [("92–93%", "Training accuracy"), ("89–90%", "Validation accuracy"), ("63%", "Unseen test accuracy"), ("Glioma", "Hardest class")]),
-        ("p", "Validation accuracy said the model was nearly done. Unseen scans said otherwise: performance fell to about 63%, with glioma confused most often — its appearance overlaps with the other tumour types more than theirs overlap with each other."),
+        ("metrics", [("92 to 93%", "Training accuracy"), ("89 to 90%", "Validation accuracy"), ("63%", "Unseen test accuracy"), ("Glioma", "Hardest class")]),
+        ("p", "Validation accuracy said the model was nearly done. Unseen scans said otherwise: performance fell to about 63%, with glioma confused most often, its appearance overlaps with the other tumour types more than theirs overlap with each other."),
       ]),
       ("Transfer learning", [
         ("p", "Instead of learning edges, textures and shapes from a few thousand scans, the second model starts from a convolutional backbone pretrained on ImageNet and uses it as a feature extractor. Global average pooling, a dense layer, dropout and a softmax sit on top; then selected upper layers of the backbone are unfrozen and fine-tuned on MRI data."),
@@ -238,17 +238,17 @@ PROJECTS = [
       ]),
       ("Results", [
         ("table", (["Model", "Training", "Validation", "Unseen test"], [
-          ["Custom CNN", "~92–93%", "~89–90%", "~63%"],
-          ["Transfer learning", "~94–96%", "~90%", "~74%"],
+          ["Custom CNN", "~92 to 93%", "~89 to 90%", "~63%"],
+          ["Transfer learning", "~94 to 96%", "~90%", "~74%"],
         ], 1)),
-        ("p", "The validation numbers are almost identical. The difference only appears on unseen data — which is exactly why it had to be measured there. An eleven-point improvement came from better features, not a better-looking validation curve."),
+        ("p", "The validation numbers are almost identical. The difference only appears on unseen data, which is exactly why it had to be measured there. An eleven-point improvement came from better features, not a better-looking validation curve."),
       ]),
       ("Deployment", [
-        ("p", "Both models were deployed as Streamlit apps: upload a scan, get class probabilities back in real time. Testing in the app on real images exposed weaknesses that never showed up in the notebook — which is the main reason to deploy a learning project at all."),
+        ("p", "Both models were deployed as Streamlit apps: upload a scan, get class probabilities back in real time. Testing in the app on real images exposed weaknesses that never showed up in the notebook, which is the main reason to deploy a learning project at all."),
       ]),
       ("What holds, and what does not", [
         ("p", "What holds: the improvement on unseen data is real and reproducible on that test set, and the comparison is like-for-like."),
-        ("p", "What does not: 74% is not clinical-grade, glioma is still the weakest class, and the next steps are clear — a larger and more varied dataset, augmentation, hyperparameter search and saliency maps that show what the model is looking at. This is a learning project, not a diagnostic tool."),
+        ("p", "What does not: 74% is not clinical-grade, glioma is still the weakest class, and the next steps are clear, a larger and more varied dataset, augmentation, hyperparameter search and saliency maps that show what the model is looking at. This is a learning project, not a diagnostic tool."),
       ]),
     ],
   ),
@@ -260,13 +260,13 @@ PROJECTS = [
     nav_title="DataPulse Analytics Platform",
     category="Data engineering",
     visibility="Public repository · team project",
-    lead="A full-stack analytics platform that turns raw eCommerce CSVs into a cleaned PostgreSQL model, then into KPI dashboards and a sales-forecasting module — built iteratively by a team of three.",
-    description="Case study: DataPulse, a data pipeline and analytics platform — ingestion, cleaning, PostgreSQL, KPI dashboards and forecasting.",
+    lead="A full-stack analytics platform that turns raw eCommerce CSVs into a cleaned PostgreSQL model, then into KPI dashboards and a sales-forecasting module, built iteratively by a team of three.",
+    description="Case study: DataPulse, a data pipeline and analytics platform, ingestion, cleaning, PostgreSQL, KPI dashboards and forecasting.",
     specs=[
       ("Context", "Software engineering team project"),
       ("Team", "Samiullah Shahid, Rafey Mir, Umar Nadeem"),
       ("Period", "April 2026"),
-      ("Role", "Co-developer — data pipeline and dashboards"),
+      ("Role", "Co-developer: data pipeline and dashboards"),
       ("Shape", "Ingestion → transformation → dashboard → forecasting"),
       ("Status", "Iteration 3 (forecasting) in progress"),
       ("Visibility", "Public repository"),
@@ -276,11 +276,11 @@ PROJECTS = [
     links=[("View repository", GH + "DataPulse-Analytics-Platform")],
     sections=[
       ("The problem", [
-        ("p", "An export from an online store is not an answer. Business owners want to know revenue, orders, customers and average order value at a glance — and whether next month looks better or worse — without opening a spreadsheet."),
+        ("p", "An export from an online store is not an answer. Business owners want to know revenue, orders, customers and average order value at a glance, and whether next month looks better or worse, without opening a spreadsheet."),
       ]),
       ("The pipeline", [
         ("flow", [("CSV upload", "Raw eCommerce data", ""), ("Ingestion", "Into the database", ""), ("Cleaning", "Types, gaps, duplicates", ""), ("PostgreSQL", "Supabase", "acc"), ("Dashboard", "KPIs and charts", ""), ("Forecasting", "ML module", "ghost")], "From file to insight"),
-        ("p", "Data moves through four stages: ingestion from CSV into the database, transformation — cleaning and feature engineering — into an analysis-ready model, a dashboard layer of KPIs and charts on top, and a forecasting module that predicts sales. A monitoring view shows the state of the pipeline itself."),
+        ("p", "Data moves through four stages: ingestion from CSV into the database, transformation, cleaning and feature engineering, into an analysis-ready model, a dashboard layer of KPIs and charts on top, and a forecasting module that predicts sales. A monitoring view shows the state of the pipeline itself."),
       ]),
       ("The dashboard", [
         ("grid", [
@@ -292,11 +292,11 @@ PROJECTS = [
       ]),
       ("Built in iterations", [
         ("numbered", [
-          "Iteration 1 — UI and UX design, and the first implementation.",
-          "Iteration 2 — data pipeline and dashboard integration.",
-          "Iteration 3 — forecasting and advanced features, in progress.",
+          "Iteration 1, UI and UX design, and the first implementation.",
+          "Iteration 2, data pipeline and dashboard integration.",
+          "Iteration 3, forecasting and advanced features, in progress.",
         ]),
-        ("p", "Working iteratively meant every stage was usable before the next one started — a dashboard on real data before any forecasting, rather than everything arriving at once at the end."),
+        ("p", "Working iteratively meant every stage was usable before the next one started, a dashboard on real data before any forecasting, rather than everything arriving at once at the end."),
       ]),
       ("What holds, and what does not", [
         ("p", "What holds: the ingestion-to-dashboard path works on real data, and the KPIs are computed from the cleaned model rather than the raw file."),
@@ -312,12 +312,12 @@ PROJECTS = [
     nav_title="RideFlow",
     category="Database systems",
     visibility="Public repository · runs locally on MySQL 8",
-    lead="A multi-role ride-hailing platform where the business rules live in MySQL — triggers, stored procedures, views, scheduled events and grants — behind an Express API with JWT authentication.",
+    lead="A multi-role ride-hailing platform where the business rules live in MySQL, triggers, stored procedures, views, scheduled events and grants, behind an Express API with JWT authentication.",
     description="Case study: RideFlow, a ride-hailing platform with business rules in MySQL triggers, procedures, views and events behind an Express + JWT API.",
     specs=[
       ("Context", "Database Systems capstone · FAST-NUCES"),
       ("Period", "May 2026"),
-      ("Role", "Full-stack — schema, SQL, API and dashboards"),
+      ("Role", "Full-stack: schema, SQL, API and dashboards"),
       ("Shape", "Three dashboards over one relational core"),
       ("Status", "Complete · runs locally"),
       ("Visibility", "Public repository"),
@@ -327,7 +327,7 @@ PROJECTS = [
     links=[("View repository", GH + "Ride-Flow-Web-App")],
     sections=[
       ("The problem", [
-        ("p", "The capstone had to demonstrate advanced SQL, not CRUD. Ride-hailing is a good domain for that: it has money, state transitions, ratings, roles and time — rules that are safest when they live next to the data rather than in whichever API route happens to remember them."),
+        ("p", "The capstone had to demonstrate advanced SQL, not CRUD. Ride-hailing is a good domain for that: it has money, state transitions, ratings, roles and time, rules that are safest when they live next to the data rather than in whichever API route happens to remember them."),
       ]),
       ("The shape", [
         ("flow", [("Rider", "Book, history, payments", ""), ("Driver", "Requests, earnings", ""), ("Admin", "Users, vehicles, reports", ""), ("Express API", "JWT + role guard · 30+ endpoints", "acc"), ("MySQL", "Where the rules live", "")], "Three roles, one core"),
@@ -340,10 +340,10 @@ PROJECTS = [
           ("Views", ["ActiveRidesView", "TopDriversView", "DriverLeaderboardView"]),
           ("Events & access", ["Expire promos on a schedule", "Archive old rides", "Role-based GRANT / REVOKE"]),
         ]),
-        ("p", "Because completing a ride is a stored procedure and its side effects are triggers, earnings, ratings and history update the same way no matter which route — or which future client — touches the data."),
+        ("p", "Because completing a ride is a stored procedure and its side effects are triggers, earnings, ratings and history update the same way no matter which route, or which future client, touches the data."),
       ]),
       ("What it delivers", [
-        ("p", "Live dashboards per role, surge pricing, automatic suspensions, promo reports and twenty standalone query demonstrations — the project that finished as one of the strongest database submissions of its term."),
+        ("p", "Live dashboards per role, surge pricing, automatic suspensions, promo reports and twenty standalone query demonstrations, the project that finished as one of the strongest database submissions of its term."),
       ]),
       ("What holds, and what does not", [
         ("p", "What holds: the business rules are enforced whatever path writes the data, and access is restricted at the database level as well as in the API."),
@@ -359,12 +359,12 @@ PROJECTS = [
     nav_title="OncoPredict AI",
     category="Machine learning",
     visibility="Public repository · live demo",
-    lead="A breast-cancer diagnosis classifier made usable: a scikit-learn model behind a Flask API with consistent feature scaling, and a responsive JavaScript front end — deployed on Railway and Vercel.",
-    description="Case study: OncoPredict AI — a breast-cancer classifier taken from notebook to Flask API and web app.",
+    lead="A breast-cancer diagnosis classifier made usable: a scikit-learn model behind a Flask API with consistent feature scaling, and a responsive JavaScript front end, deployed on Railway and Vercel.",
+    description="Case study: OncoPredict AI, a breast-cancer classifier taken from notebook to Flask API and web app.",
     specs=[
       ("Context", "Independent machine-learning project"),
       ("Period", "December 2025"),
-      ("Role", "Everything — model, API, front end, deployment"),
+      ("Role", "Everything: model, API, front end, deployment"),
       ("Shape", "Notebook → API → web app"),
       ("Status", "Deployed"),
       ("Visibility", "Public repository"),
@@ -374,7 +374,7 @@ PROJECTS = [
     links=[("View repository", GH + "Onco-PredictionAI"), ("Live demo", "https://logistic-regression-breast-cancer-d.vercel.app")],
     sections=[
       ("The problem", [
-        ("p", "A trained model in a notebook helps nobody. The goal was to take a breast-cancer diagnosis classifier all the way to something a person can use — enter measurements, get a prediction — without the model behaving differently in production than it did in training."),
+        ("p", "A trained model in a notebook helps nobody. The goal was to take a breast-cancer diagnosis classifier all the way to something a person can use, enter measurements, get a prediction, without the model behaving differently in production than it did in training."),
       ]),
       ("The model", [
         ("flow", [("30 features", "Tumour measurements", ""), ("StandardScaler", "Fit on training data", ""), ("Logistic regression", "Binary classifier", "acc"), ("Prediction", "Benign or malignant", "")], "Training pipeline"),
@@ -382,11 +382,11 @@ PROJECTS = [
       ]),
       ("From notebook to API", [
         ("flow", [("Web form", "JavaScript · Vercel", ""), ("Flask API", "Railway", "acc"), ("Same scaler", "No training/serving skew", ""), ("Model", "Real-time prediction", "")], "Serving path"),
-        ("p", "The Flask API applies the same fitted scaler before every prediction — the easiest bug in this kind of project is training on scaled data and serving unscaled data. The front end posts features over REST and renders the result in real time."),
+        ("p", "The Flask API applies the same fitted scaler before every prediction, the easiest bug in this kind of project is training on scaled data and serving unscaled data. The front end posts features over REST and renders the result in real time."),
       ]),
       ("What holds, and what does not", [
         ("p", "What holds: the full path from notebook to a public web app, with consistent preprocessing on both sides."),
-        ("p", "What does not: it is a teaching model, not a medical device — a single model with no calibration study or clinical validation behind it."),
+        ("p", "What does not: it is a teaching model, not a medical device, a single model with no calibration study or clinical validation behind it."),
       ]),
     ],
   ),
@@ -399,13 +399,13 @@ PROJECTS = [
     category="Deep learning foundations",
     visibility="Public repositories",
     lead="Before leaning on frameworks, I wrote the maths myself. Three NumPy-only projects: multivariate linear regression with gradient descent, a dense network on spiral data, and an MNIST digit recogniser with full backpropagation, served through Streamlit.",
-    description="Case study: neural networks and linear regression implemented from scratch in NumPy — forward pass, backpropagation, gradient descent and an MNIST app.",
+    description="Case study: neural networks and linear regression implemented from scratch in NumPy, forward pass, backpropagation, gradient descent and an MNIST app.",
     specs=[
       ("Context", "Self-directed study alongside Andrew Ng’s courses"),
-      ("Period", "December 2025 — May 2026"),
+      ("Period", "December 2025 to May 2026"),
       ("Role", "Everything"),
       ("Shape", "Three repositories, one progression"),
-      ("Frameworks", "None — NumPy only"),
+      ("Frameworks", "None, NumPy only"),
       ("Visibility", "Public repositories"),
     ],
     covers=["Linear algebra", "Calculus", "Optimisation", "Deep learning"],
@@ -418,23 +418,23 @@ PROJECTS = [
       ("Linear regression", [
         ("numbered", [
           "Generate a synthetic dataset with a known linear relationship plus noise.",
-          "Normalise every feature — and the target — by mean and standard deviation.",
+          "Normalise every feature, and the target, by mean and standard deviation.",
           "Compute the mean-squared-error cost for the current weights.",
           "Take the gradient and update the weights with gradient descent until the cost converges.",
         ]),
-        ("p", "Multivariate regression first, because every later idea — a cost, its gradient, a learning rate, convergence — appears here in its simplest form."),
+        ("p", "Multivariate regression first, because every later idea, a cost, its gradient, a learning rate, convergence, appears here in its simplest form."),
       ]),
       ("A dense network on spirals", [
-        ("p", "Next, a multi-class classifier on a spiral dataset that no straight line can separate: dense layers, ReLU and softmax activations and categorical cross-entropy loss, each written first in raw Python and then vectorised with NumPy. The focus was forward-pass correctness — the foundation the backward pass is built on."),
+        ("p", "Next, a multi-class classifier on a spiral dataset that no straight line can separate: dense layers, ReLU and softmax activations and categorical cross-entropy loss, each written first in raw Python and then vectorised with NumPy. The focus was forward-pass correctness, the foundation the backward pass is built on."),
       ]),
       ("MNIST with backpropagation", [
-        ("flow", [("28×28 image", "Flattened to 784", ""), ("Hidden layer", "128 · ReLU", "acc"), ("Output layer", "10 · softmax", ""), ("Prediction", "Digit 0–9", "")], "784 → 128 → 10"),
+        ("flow", [("28×28 image", "Flattened to 784", ""), ("Hidden layer", "128 · ReLU", "acc"), ("Output layer", "10 · softmax", ""), ("Prediction", "Digit 0 to 9", "")], "784 → 128 → 10"),
         ("p", "Then the full loop on MNIST: 70,000 handwritten digits, 60,000 for training and 10,000 for testing. Forward propagation, backpropagation, cross-entropy loss, weight initialisation and gradient-descent updates are all manual matrix operations."),
-        ("p", "The trained weights are serialised with pickle and served through a Streamlit app: upload a digit, see the prediction — an end-to-end machine-learning pipeline with no framework anywhere in it."),
+        ("p", "The trained weights are serialised with pickle and served through a Streamlit app: upload a digit, see the prediction, an end-to-end machine-learning pipeline with no framework anywhere in it."),
       ]),
       ("What it taught", [
         ("numbered", [
-          "Most bugs are shape bugs — print the shapes before you print anything else.",
+          "Most bugs are shape bugs, print the shapes before you print anything else.",
           "Softmax and cross-entropy together have a beautifully simple gradient.",
           "Normalising inputs is the difference between converging and wandering.",
           "Logits, probabilities and predictions are three different things, and confusing them is easy.",
@@ -450,11 +450,11 @@ PROJECTS = [
     nav_title="n8n AI Automation Pipelines",
     category="AI automation",
     visibility="Client work · workflows not published",
-    lead="Ten-plus production workflows that take repetitive work off people — content creation, inbox triage, customer support and knowledge retrieval — running reliably across multiple clients.",
-    description="Case study: n8n and Make.com AI automation pipelines — content, email triage, support agents and Pinecone knowledge bases.",
+    lead="Ten-plus production workflows that take repetitive work off people, content creation, inbox triage, customer support and knowledge retrieval, running reliably across multiple clients.",
+    description="Case study: n8n and Make.com AI automation pipelines, content, email triage, support agents and Pinecone knowledge bases.",
     specs=[
       ("Context", "Freelance client work"),
-      ("Period", "2025 — Present"),
+      ("Period", "2025 to Present"),
       ("Role", "Design, build and maintenance"),
       ("Shape", "Trigger → AI agent → tools"),
       ("Status", "In production"),
@@ -466,11 +466,11 @@ PROJECTS = [
     links=[],
     sections=[
       ("The problem", [
-        ("p", "Content creation, email triage and support replies were eating hours every day — and the same hours, in the same way, every day. Work that repetitive is exactly what should run without a person in the loop until a person is actually needed."),
+        ("p", "Content creation, email triage and support replies were eating hours every day, and the same hours, in the same way, every day. Work that repetitive is exactly what should run without a person in the loop until a person is actually needed."),
       ]),
       ("The pattern", [
         ("flow", [("Trigger", "Webhook · schedule · inbox", ""), ("AI agent", "LLM with tools", "acc"), ("Tools", "Pinecone · email · LinkedIn · CRM", ""), ("Hand-off", "A person, when it matters", "ghost")], "How each pipeline is shaped"),
-        ("p", "Almost every pipeline has the same skeleton: something happens, an agent with the right tools decides what to do about it, and the result lands where people already work — with a human hand-off wherever a mistake would be public or expensive."),
+        ("p", "Almost every pipeline has the same skeleton: something happens, an agent with the right tools decides what to do about it, and the result lands where people already work, with a human hand-off wherever a mistake would be public or expensive."),
       ]),
       ("Four pipelines", [
         ("grid", [
@@ -544,7 +544,7 @@ def header():
             <img src="../assets/img/hero-logo.png" alt="" width="46" height="46" class="brand-mark">
             <span class="brand-sep" aria-hidden="true"></span>
             <span class="brand-text"><span class="brand-name">Samiullah Shahid</span><span class="brand-role">AI/ML Engineer &amp; Data Scientist</span></span>
-            <span class="sr-only">— home</span>
+            <span class="sr-only">home</span>
           </a>
         </div>
         <ul class="nav-links">
@@ -691,7 +691,7 @@ def page(p, nxt, sprite):
           </div>
         </section>""")
     sections = "\n".join(secs)
-    page_title = f'{p["nav_title"]} — Samiullah Shahid'
+    page_title = f'{p["nav_title"]} | Samiullah Shahid'
 
     return f"""<!doctype html>
 <html lang="en" class="no-js">
