@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ferra Voice AI Platform — Samiullah Shahid</title>
+<meta name="description" content="Case study: Ferra, a white-label, multi-tenant AI voice-agent platform with real-time calls, provider failover, per-leg metering and partner branding.">
+<meta name="theme-color" content="#e4e3df">
+<meta property="og:title" content="Ferra Voice AI Platform — Samiullah Shahid">
+<meta property="og:description" content="Case study: Ferra, a white-label, multi-tenant AI voice-agent platform with real-time calls, provider failover, per-leg metering and partner branding.">
+<link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="../assets/img/favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&display=swap">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/case.css">
+<script>document.documentElement.classList.replace('no-js','js');</script>
+</head>
+<body class="page-case" style="--p-accent:#2f4a35;--p-warm:#5f8f67;--p-surface:#e3ebdf;--p-cream:#f1f7ed;--p-muted:#7d9583">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.83v1.5h.05c.53-1 1.84-1.85 3.62-1.85 3.87 0 4.5 2.4 4.5 5.52v5.83h-4v-5.17c0-1.23-.02-2.82-1.72-2.82-1.72 0-1.98 1.34-1.98 2.73v5.26h-4.3v-11Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M3.5 6.5h17v11h-17z"/><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="m3.5 7 8.5 6.5L20.5 7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8.5 7H17v8.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M6 13l6 6 6-6"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="m8.5 8-4 4 4 4m7-8 4 4-4 4"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="none" stroke="currentColor" stroke-width="1.6" d="M5 6v12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6V6M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"/></symbol>
+  <symbol id="i-flow" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="18" cy="18" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M8.4 6H14a4 4 0 0 1 0 8h-4a4 4 0 0 0 0 8"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+</svg>
+
+<header class="site-header" data-tone="day">
+  <div class="topbar">
+    <div class="wrap">
+      <div class="topbar-inner gutter intro-fade">
+        <div class="topbar-left">
+          <span class="avail"><span class="avail-dot"><span class="availability-halo"></span><span class="avail-core"></span></span><span class="avail-text">Available for new projects</span></span>
+          <span class="vsep" aria-hidden="true"></span>
+          <p class="topbar-msg">Need an ML model, a data pipeline or an AI automation that runs itself?</p>
+        </div>
+        <div class="topbar-right">
+          <span class="vsep" aria-hidden="true"></span>
+          <ul class="icon-links">
+            <li><a href="https://github.com/Sami-Shahid-001" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg><use href="#i-github"/></svg></a></li>
+            <li><a href="https://www.linkedin.com/in/samiullah-shahid/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg><use href="#i-linkedin"/></svg></a></li>
+            <li><a href="mailto:samishaee101@gmail.com" aria-label="Email"><svg><use href="#i-mail"/></svg></a></li>
+          </ul>
+          <span class="vsep" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="nav-box">
+      <span class="nav-card" aria-hidden="true"></span>
+      <nav class="nav gutter" aria-label="Primary">
+        <div class="nav-left intro-fade">
+          <a href="../index.html" class="brand">
+            <img src="../assets/img/hero-logo.png" alt="" width="46" height="46" class="brand-mark">
+            <span class="brand-sep" aria-hidden="true"></span>
+            <span class="brand-text"><span class="brand-name">Samiullah Shahid</span><span class="brand-role">AI/ML Engineer &amp; Data Scientist</span></span>
+            <span class="sr-only">— home</span>
+          </a>
+        </div>
+        <ul class="nav-links">
+          <li class="intro-fade"><a href="../index.html#home" class="nav-link"><span class="nav-swap"><span class="nav-swap-in">Home</span><span class="nav-swap-out" aria-hidden="true">Home</span></span></a></li>
+          <li class="intro-fade"><a href="../index.html#about" class="nav-link"><span class="nav-swap"><span class="nav-swap-in">About</span><span class="nav-swap-out" aria-hidden="true">About</span></span></a></li>
+          <li class="intro-fade"><a href="../index.html#work" class="nav-link is-active"><span class="nav-swap"><span class="nav-swap-in">Work</span><span class="nav-swap-out" aria-hidden="true">Work</span></span></a></li>
+          <li class="intro-fade"><a href="../index.html#services" class="nav-link"><span class="nav-swap"><span class="nav-swap-in">Services</span><span class="nav-swap-out" aria-hidden="true">Services</span></span></a></li>
+          <li class="intro-fade"><a href="../index.html#experience" class="nav-link"><span class="nav-swap"><span class="nav-swap-in">Experience</span><span class="nav-swap-out" aria-hidden="true">Experience</span></span></a></li>
+          <li class="intro-fade"><a href="../index.html#education" class="nav-link"><span class="nav-swap"><span class="nav-swap-in">Education</span><span class="nav-swap-out" aria-hidden="true">Education</span></span></a></li>
+          <li class="intro-fade"><a href="../index.html#contact" class="nav-link"><span class="nav-swap"><span class="nav-swap-in">Contact</span><span class="nav-swap-out" aria-hidden="true">Contact</span></span></a></li>
+          <span class="nav-dot" aria-hidden="true"></span>
+        </ul>
+        <div class="nav-right intro-fade">
+          <span class="cta-wrap">
+            <span class="cta-glow" aria-hidden="true"></span>
+            <a href="../index.html#contact" class="nav-cta">
+              <span class="cta-sweep" aria-hidden="true"></span>
+              <span class="nav-cta-label">Let’s Talk</span>
+              <span class="nav-cta-icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+            </a>
+          </span>
+          <button type="button" class="menu-btn" aria-expanded="false" aria-controls="site-menu">
+            <span class="menu-btn-label">Menu</span>
+            <span class="menu-plus" aria-hidden="true"><span></span><span></span></span>
+          </button>
+        </div>
+      </nav>
+      <span class="nav-progress" aria-hidden="true"><span></span></span>
+    </div>
+  </div>
+</header>
+
+<div class="menu-panel" id="site-menu" aria-hidden="true">
+  <div class="menu-inner gutter">
+    <p class="eyebrow menu-eyebrow">Navigate</p>
+    <ul class="menu-links">
+      <li><a href="../index.html#home"><span class="eyebrow">01</span>Home</a></li>
+      <li><a href="../index.html#about"><span class="eyebrow">02</span>About</a></li>
+      <li><a href="../index.html#work"><span class="eyebrow">03</span>Work</a></li>
+      <li><a href="../index.html#services"><span class="eyebrow">04</span>Services</a></li>
+      <li><a href="../index.html#experience"><span class="eyebrow">05</span>Experience</a></li>
+      <li><a href="../index.html#education"><span class="eyebrow">06</span>Education</a></li>
+      <li><a href="../index.html#contact"><span class="eyebrow">07</span>Contact</a></li>
+    </ul>
+    <div class="menu-foot">
+      <a href="mailto:samishaee101@gmail.com" class="menu-mail">samishaee101@gmail.com</a>
+      <ul class="pill-links">
+        <li><a class="soc" href="https://github.com/Sami-Shahid-001" target="_blank" rel="noopener noreferrer"><svg><use href="#i-github"/></svg><span>GitHub</span></a></li>
+        <li><a class="soc" href="https://www.linkedin.com/in/samiullah-shahid/" target="_blank" rel="noopener noreferrer"><svg><use href="#i-linkedin"/></svg><span>LinkedIn</span></a></li>
+        <li><a class="soc" href="../assets/Samiullah_Shahid_CV.pdf" download><svg><use href="#i-file"/></svg><span>CV</span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="shell">
+<main>
+  <section class="case-hero gutter" data-tone="day">
+    <a class="case-back case-intro" href="../index.html#work"><span><svg><use href="#i-arrow"/></svg></span>Back to Selected Work</a>
+    <div class="case-hero-grid">
+      <div>
+        <div class="case-meta case-intro">
+          <span class="case-num">01</span>
+          <span class="eyebrow">Professional work</span>
+          <span class="case-meta-line" aria-hidden="true"></span>
+          <span class="private-badge case-intro"><svg><use href="#i-lock"/></svg>Private work</span>
+        </div>
+        <h1 class="case-title">
+          <span class="line"><span class="line-inner">Ferra</span></span>
+          <span class="line"><span class="line-inner">Voice AI</span></span>
+          <span class="line"><span class="line-inner">Platform</span></span>
+        </h1>
+        <p class="case-lead case-intro">A no-code, white-label platform for AI phone agents — real-time voice on Deepgram, OpenAI and ElevenLabs, metered pay-as-you-go billing, and partner-branded sub-accounts that never reveal whose platform their clients are on.</p>
+        <p class="eyebrow muted case-intro" style="margin-top:1.25rem">Private repository · no client data, routes or screens published</p>
+        <div class="case-links case-intro"><a class="btn btn-dark" href="mailto:samishaee101@gmail.com?subject=Ferra%20Voice%20AI%20Platform"><span>Ask me about this project</span><svg><use href="#i-arrow"/></svg></a></div>
+      </div>
+      <dl class="case-specs">
+          <div class="case-spec case-intro"><dt>Context</dt><dd>Syntrova AI Solutions · Professional work</dd></div>
+          <div class="case-spec case-intro"><dt>Replaces</dt><dd>Hand-stitching telephony, speech, LLM and billing vendors for every client</dd></div>
+          <div class="case-spec case-intro"><dt>Period</dt><dd>May — July 2026</dd></div>
+          <div class="case-spec case-intro"><dt>Role</dt><dd>AI Engineer — voice-agent workflows, LLM and voice API integration, pricing engine, tenancy</dd></div>
+          <div class="case-spec case-intro"><dt>Shape</dt><dd>Marketing site, multi-tenant dashboard and a voice gateway</dd></div>
+          <div class="case-spec case-intro"><dt>Status</dt><dd>Production platform · under active development</dd></div>
+          <div class="case-spec case-intro"><dt>Visibility</dt><dd>Private repository · case study only</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <div class="case-band" data-tone="day">
+    <div class="gutter">
+      <p class="eyebrow">Covers</p>
+      <ol class="covers"><span class="covers-line" aria-hidden="true"></span><li><i></i><span>Voice AI</span></li><li><i></i><span>LLMs</span></li><li><i></i><span>Real-time</span></li><li><i></i><span>Billing</span></li><li><i></i><span>Multi-tenancy</span></li><li><i></i><span>Security</span></li></ol>
+      <div class="stack-row">
+        <p class="eyebrow">Stack</p>
+        <ul class="work-tags"><li><span class="tech-pill">Next.js</span></li><li><span class="tech-pill">TypeScript</span></li><li><span class="tech-pill">OpenAI</span></li><li><span class="tech-pill">Deepgram</span></li><li><span class="tech-pill">ElevenLabs</span></li><li><span class="tech-pill">WebSockets</span></li><li><span class="tech-pill">Server-Sent Events</span></li><li><span class="tech-pill">SQLite → PostgreSQL</span></li><li><span class="tech-pill">Zapier · Make · n8n</span></li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-body gutter" data-tone="day">
+    <aside class="case-toc" aria-label="On this page">
+      <div class="case-toc-inner">
+        <p class="eyebrow">On this page</p>
+        <ol>
+            <li><a href="#s01-the-problem"><span class="eyebrow">01</span><span>The problem</span></a></li>
+            <li><a href="#s02-the-voice-loop"><span class="eyebrow">02</span><span>The voice loop</span></a></li>
+            <li><a href="#s03-providers-that-fail-over"><span class="eyebrow">03</span><span>Providers that fail over</span></a></li>
+            <li><a href="#s04-white-label-by-host-header"><span class="eyebrow">04</span><span>White-label by Host header</span></a></li>
+            <li><a href="#s05-tenants-that-cannot-see-each-other"><span class="eyebrow">05</span><span>Tenants that cannot see each other</span></a></li>
+            <li><a href="#s06-paying-by-the-minute"><span class="eyebrow">06</span><span>Paying by the minute</span></a></li>
+            <li><a href="#s07-knowledge-channels-and-integrations"><span class="eyebrow">07</span><span>Knowledge, channels and integrations</span></a></li>
+            <li><a href="#s08-the-affiliate-programme"><span class="eyebrow">08</span><span>The affiliate programme</span></a></li>
+            <li><a href="#s09-what-the-audit-measured"><span class="eyebrow">09</span><span>What the audit measured</span></a></li>
+            <li><a href="#s10-what-holds-and-what-does-not"><span class="eyebrow">10</span><span>What holds, and what does not</span></a></li>
+        </ol>
+      </div>
+    </aside>
+    <div class="case-sections">
+        <section class="case-sec" id="s01-the-problem">
+          <span class="case-bleed" aria-hidden="true"></span>
+          <p class="eyebrow sec-num reveal-up">01<i></i></p>
+          <h2 class="sec-title reveal-up">The problem</h2>
+          <div class="sec-content">
+            <p>Businesses wanted a phone line that never goes to voicemail — an agent that answers, qualifies, books and follows up. Building one means stitching together telephony, streaming speech-to-text, a language model, a voice, a knowledge base, a CRM and a billing model that charges for every second of all of it.</p>
+            <p>Agencies wanted something one level up: to sell that capability to their own clients, under their own brand, at their own prices — without those clients ever learning which platform sits underneath.</p>
+            <p>So Ferra had to be two products at once. A no-code builder simple enough for a dental clinic, and a white-label, multi-tenant platform strict enough that one partner’s client can never see — or be billed for — another’s.</p>
+            <div class="fig fig-chips reveal-up"><span>Platform</span><span>Partners</span><span>Clients</span><span>Agents</span><span>Calls</span><span>Contacts</span><span>Knowledge</span><span>Billing</span><span>Audit</span></div>
+          </div>
+        </section>
+        <section class="case-sec" id="s02-the-voice-loop">
+          <span class="case-bleed" aria-hidden="true"></span>
+          <p class="eyebrow sec-num reveal-up">02<i></i></p>
+          <h2 class="sec-title reveal-up">The voice loop</h2>
+          <div class="sec-content">
+            <p>Every call is a loop of turns. Caller audio streams into speech-to-text; endpointing decides whether the caller has finished or only paused; the transcript goes to the language model with the agent’s prompt, tools and retrieved knowledge; the reply streams into text-to-speech and back down the line.</p>
+            <figure class="fig reveal-up"><div class="fig-flow"><div class="flow-node "><b>Caller</b><small>Phone · SMS · WhatsApp</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Speech-to-text</b><small>Deepgram, streaming</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Endpointing</b><small>Finished, or paused?</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node acc"><b>LLM + tools</b><small>OpenAI · knowledge · CRM</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Text-to-speech</b><small>ElevenLabs, streamed</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node ghost"><b>Caller</b><small>Barge-in aware</small></div></div><figcaption class="fig-caption">One turn of a call</figcaption></figure>
+            <p>The hard part is not any single step, it is the latency budget across all of them. A pause that feels natural in a chat window feels broken on a phone. Barge-in matters as much as speed: when the caller interrupts, playback stops and the loop listens again instead of talking over them.</p>
+            <p>My part was the agent workflows themselves — prompts, tool calls into CRMs and calendars, inbound and outbound call flows — and wiring the voice and LLM APIs to the platform’s REST endpoints so that a call could book an appointment, sync a contact and hand off to SMS or WhatsApp.</p>
+          </div>
+        </section>
+        <section class="case-sec" id="s03-providers-that-fail-over">
+          <span class="case-bleed" aria-hidden="true"></span>
+          <p class="eyebrow sec-num reveal-up">03<i></i></p>
+          <h2 class="sec-title reveal-up">Providers that fail over</h2>
+          <div class="sec-content">
+            <p>Each agent version points at a routing profile: a primary provider and an ordered list of fallbacks. A router owns failover, circuit breaking and a cost ceiling; adapters own each provider’s wire format. Neither knows about the other’s concerns, so adding a provider never means touching the call orchestrator.</p>
+            <figure class="fig reveal-up"><div class="fig-flow"><div class="flow-node "><b>Agent version</b><small>What the client built</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Routing profile</b><small>Primary + fallbacks</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node acc"><b>Router</b><small>Failover · circuit breaker · cost ceiling</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Adapter</b><small>One per provider</small></div></div><figcaption class="fig-caption">Which provider answers</figcaption></figure>
+            <p>Credentials resolve through a vault in a fixed order — agent, then client, then partner, then the platform’s pooled keys. A partner can bring their own OpenAI or ElevenLabs account and every call on their tenants uses it; everyone else falls back to the pool.</p>
+            <figure class="fig reveal-up"><div class="fig-flow"><div class="flow-node "><b>Agent</b><small>Most specific</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Client</b></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node "><b>Partner</b><small>Bring your own key</small></div><span class="flow-arrow" aria-hidden="true"></span><div class="flow-node ghost"><b>Platform pool</b><small>Fallback</small></div></div><figcaption class="fig-caption">Whose key pays for the call</figcaption></figure>
+          </div>
+        </section>
+        <section class="case-sec" id="s04-white-label-by-host-header">
+          <span class="case-bleed" aria-hidden="true"></span>
+          <p class="eyebrow sec-num reveal-up">04<i></i></p>
+          <h2 class="sec-title reveal-up">White-label by Host header</h2>
+          <div class="sec-content">
+            <p>The dashboard resolves branding from the request’s Host header. A partner who points app.theirbrand.com at the platform gets their own logo, colours and product name on every screen, and their clients never see the word Ferra.</p>
+            <p>That single decision shaped the architecture. A partner’s domain cannot be a path under ferra.ai, and a framework’s base path is fixed at build time — so the marketing site and the product became separate applications on separate hostnames, sharing one session cookie on the parent domain.</p>
+            <div class="fig fig-table-wrap reveal-up"><table class="fig-table"><thead><tr><th></th><th>Platform brand</th><th>Partner brand</th></tr></thead><tbody><tr><td>Hostname</td><td>app.ferra.ai</td><td>app.partnerbrand.com</td></tr><tr><td>Logo, colours, name</td><td>Ferra</td><td>The partner’s own</td></tr><tr class="hl"><td>Link back to the marketing site</td><td>Shown</td><td>Not rendered</td></tr><tr><td>Prices clients see</td><td>Platform rates</td><td>Rates the partner sets</td></tr></tbody></table></div>
+            <p>The links between the two apps are deliberately asymmetric. Marketing links into the product generously; the product links back to marketing only for the platform’s own brand. On a partner’s domain that link is simply not rendered — one “Back to Ferra” would tell their clients whose platform they are on.</p>
+          </div>
+        </section>
+        <section class="case-sec" id="s05-tenants-that-cannot-see-each-other">
+          <span class="case-bleed" aria-hidden="true"></span>
+          <p class="eyebrow sec-num reveal-up">05<i></i></p>
+          <h2 class="sec-title reveal-up">Tenants that cannot see each other</h2>
+          <div class="sec-content">
+            <p>Isolation is enforced by construction rather than by remembering to add a WHERE clause. Every tenant-scoped query goes through a scoped database builder bound to the caller’s resolved tenant; the tenant predicate is appended by the builder and cannot be omitted or overridden.</p>
+            <ol class="fig fig-numbered reveal-up"><li>A row’s tenant is immutable — an update that tries to move it between tenants throws.</li><li>Raw SQL against a tenant table must carry an explicit tenant token, or it does not run.</li><li>A test fails the build if a new table with a tenant column is not registered with the guard.</li><li>Asking for another tenant’s call by id returns 404, not 403 — for you, the record does not exist.</li><li>Permissions are re-read from the membership on every request rather than trusted from the token, so revoking access lands within a minute instead of when a token happens to expire.</li></ol>
+          </div>
+        </section>
+        <section class="case-sec" id="s06-paying-by-the-minute">
+          <span class="case-bleed" aria-hidden="true"></span>
+          <p class="eyebrow sec-num reveal-up">06<i></i></p>
+          <h2 class="sec-title reveal-up">Paying by the minute</h2>
+          <div class="sec-content">
+            <p>Pricing is pay-as-you-go from a prepaid wallet. Every call is metered per leg — speech-to-text, language model and text-to-speech each carry their own usage and cost — so the call detail shows exactly where the money went, and a partner can set their own rates for their clients and keep the margin.</p>
+            <div class="fig fig-metrics reveal-up"><div class="fig-metric"><b>Per leg</b><span>STT · LLM · TTS costed separately</span></div><div class="fig-metric"><b>Wallet</b><span>Prepaid, pay-as-you-go</span></div><div class="fig-metric"><b>Rebilling</b><span>Partners set client rates</span></div><div class="fig-metric"><b>Signed</b><span>Usage bound to a ticket</span></div></div>
+            <p>Metering cannot be decided by the browser. The streaming test console reaches the voice agent through a small relay that holds no billing logic of its own: it forwards the session for authorisation and reports usage back to the dashboard, and each report is bound to a signed ticket issued at authorisation — so a turn cannot be billed to a different tenant.</p>
+          </div>
+        </section>
+        <section class="case-sec" id="s07-knowledge-channels-and-integrations">
+          <span class="case-bleed" aria-hidden="true"></span>
+          <p class="eyebrow sec-num reveal-up">07<i></i></p>
+          <h2 class="sec-title reveal-up">Knowledge, channels and integrations</h2>
+          <div class="sec-content">
+            <div class="fig fig-grid reveal-up"><div class="fig-card"><p class="eyebrow">Knowledge</p><ul><li>Document upload and chunking</li><li>Hybrid retrieval with rank fusion</li><li>A knowledge base per agent</li></ul></div><div class="fig-card"><p class="eyebrow">Channels</p><ul><li>Inbound and outbound voice</li><li>SMS and WhatsApp follow-ups</li><li>Appointment booking on calls</li></ul></div><div class="fig-card"><p class="eyebrow">Integrations</p><ul><li>8,000+ apps through Zapier, Make and n8n</li><li>CRM contact sync</li><li>REST API with scoped keys</li></ul></div><div class="fig-card"><p class="eyebrow">Compliance</p><ul><li>Consent and do-not-call checks per contact</li><li>Hash-chained audit log</li><li>Per-request content-security nonce</li></ul></div></div>
+          </div>
+        </section>
+        <section class="case-sec" id="s08-the-affiliate-programme">
+          <span class="case-bleed" aria-hidden="true"></span>
+          <p class="eyebrow sec-num reveal-up">08<i></i></p>
+          <h2 class="sec-title reveal-up">The affiliate programme</h2>
+          <div class="sec-content">
+            <p>Research into the competitor Ferra was benchmarked against showed it had not built an affiliate programme at all — it resold a hosted one. Ferra’s was built in-house instead: affiliate accounts, an admin review queue, referral links and click tracking.</p>
+            <div class="fig fig-callout reveal-up"><p class="eyebrow">Commission</p><p>20% recurring, for the lifetime of every customer an affiliate refers.</p></div>
+            <p>Payouts are deliberately the last phase, gated on the billing integration, because commission arithmetic is only as trustworthy as the subscription events it is computed from.</p>
+          </div>
+        </section>
+        <section class="case-sec" id="s09-what-the-audit-measured">
+          <span class="case-bleed" aria-hidden="true"></span>
+          <p class="eyebrow sec-num reveal-up">09<i></i></p>
+          <h2 class="sec-title reveal-up">What the audit measured</h2>
+          <div class="sec-content">
+            <p>The platform carries its own audit harness that signs in as every seeded role and walks the product. Its last recorded run: 64 checks, 59 passed, 5 warnings, none failed. Four of the warnings are correct behaviour — partner-only pages redirecting for a client admin — and the fifth is the live voice leg, which the harness does not exercise.</p>
+            <div class="fig fig-metrics reveal-up"><div class="fig-metric"><b>64</b><span>Checks run</span></div><div class="fig-metric"><b>59</b><span>Passed</span></div><div class="fig-metric"><b>0</b><span>Failed</span></div><div class="fig-metric"><b>335 ms</b><span>p50 route time, dev server</span></div></div>
+            <p>Those latencies are development-server numbers that include on-demand compilation. They are reported because they were measured, not because they represent production.</p>
+          </div>
+        </section>
+        <section class="case-sec" id="s10-what-holds-and-what-does-not">
+          <span class="case-bleed" aria-hidden="true"></span>
+          <p class="eyebrow sec-num reveal-up">10<i></i></p>
+          <h2 class="sec-title reveal-up">What holds, and what does not</h2>
+          <div class="sec-content">
+            <p>What holds: tenant isolation is enforced by construction and tested; provider failover and per-leg metering are real code paths with real traces; white-labelling survives every screen a client can reach.</p>
+            <p>What does not, yet: the local build runs on SQLite with an application-level guard standing in for PostgreSQL row-level security; circuit breakers and concurrency caps live in one process rather than across nodes; and affiliate payouts wait on billing. The move to production infrastructure adds those beneath the same code paths rather than replacing them.</p>
+          </div>
+        </section>
+    </div>
+  </div>
+
+  <section class="case-next on-night" data-tone="night">
+    <div class="gutter case-next-inner">
+      <div class="chapter-row reveal-row">
+        <span class="eyebrow accent">Next</span>
+        <span class="eyebrow night-muted">Case study 02</span>
+        <span class="chapter-line" aria-hidden="true"></span>
+      </div>
+      <a class="next-link reveal-up" href="sahulatkar.html">
+        <span class="next-title"><span>SahulatKar BNPL Platform</span><span class="next-arrow" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></span>
+        <p class="next-sub">A vendor-agnostic, Shariah-compliant Buy Now, Pay Later platform for Pakistan. Paste any product link, get a Murabaha financing offer, and an agent completes the purchase on the merchant’s own site with a single-use virtual card. I built the three frontends people actually touch.</p>
+      </a>
+      <div class="next-foot">
+        <a class="btn btn-night-ghost" href="../index.html#work"><span>All selected work</span></a>
+        <a class="btn btn-light" href="../index.html#contact"><span>Start a Conversation</span><svg><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer on-night" data-tone="night">
+  <div class="gutter footer-inner">
+    <div class="footer-rule" aria-hidden="true"></div>
+    <div class="footer-top">
+      <nav aria-label="Footer">
+        <ul class="footer-links">
+          <li><a href="../index.html#home">Home<span aria-hidden="true"></span></a></li>
+          <li><a href="../index.html#about">About<span aria-hidden="true"></span></a></li>
+          <li><a href="../index.html#work">Work<span aria-hidden="true"></span></a></li>
+          <li><a href="../index.html#services">Services<span aria-hidden="true"></span></a></li>
+          <li><a href="../index.html#experience">Experience<span aria-hidden="true"></span></a></li>
+          <li><a href="../index.html#education">Education<span aria-hidden="true"></span></a></li>
+          <li><a href="../index.html#contact">Contact<span aria-hidden="true"></span></a></li>
+        </ul>
+      </nav>
+      <ul class="pill-links pill-links-night">
+        <li><a class="soc" href="https://github.com/Sami-Shahid-001" target="_blank" rel="noopener noreferrer"><svg><use href="#i-github"/></svg><span>GitHub</span></a></li>
+        <li><a class="soc" href="https://www.linkedin.com/in/samiullah-shahid/" target="_blank" rel="noopener noreferrer"><svg><use href="#i-linkedin"/></svg><span>LinkedIn</span></a></li>
+        <li><a class="soc" href="mailto:samishaee101@gmail.com"><svg><use href="#i-mail"/></svg><span>Email</span></a></li>
+      </ul>
+    </div>
+    <div class="footer-name" aria-hidden="true">
+      <p class="name-line name-outline-night footer-line">SAMIULLAH</p>
+      <p class="name-line name-solid-night footer-line">SHAHID</p>
+    </div>
+    <div class="footer-credits">
+      <p>Designed &amp; Built by Samiullah Shahid</p>
+      <p>© <span data-year>2026</span></p>
+    </div>
+  </div>
+</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/case.js" defer></script>
+</body>
+</html>
