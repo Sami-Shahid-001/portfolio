@@ -279,10 +279,19 @@ html.lenis,html.lenis body{height:auto}
 .tone-day{top:0;height:78vh}
 .tone-night{top:78vh;bottom:0}
 .hero-stage{position:sticky;top:0;z-index:10;display:flex;flex-direction:column;overflow:hidden;height:var(--stage-height)}
-.hero-top{position:relative;z-index:40;display:flex;flex-shrink:0;align-items:baseline;justify-content:space-between;padding-top:calc(var(--nav-block) + clamp(.5rem,2.2vh,1.5rem) + var(--safe-top))}
+.hero-top{position:relative;z-index:40;display:flex;flex-shrink:0;align-items:baseline;justify-content:space-between;padding-top:0}
 .hero-role{color:var(--color-muted)}
 .hero-year{display:none}
 @media (min-width:640px){.hero-year{display:block}}
+.hero-hook{position:relative;z-index:40;flex-shrink:0;padding-inline:var(--gutter-x);padding-top:calc(var(--nav-block) + .4rem + var(--safe-top));margin-bottom:.75rem;text-align:center;white-space:nowrap;line-height:1.1rem;color:var(--color-ink)}
+@media (min-width:1024px){
+  /* the row sits just above where the eyebrow used to start, so the rest of the hero stays exactly where it was */
+  .hero-hook{padding-top:calc(var(--nav-block) + clamp(.5rem,2.2vh,1.5rem) + var(--safe-top) - 1.9rem)}
+}
+@media (max-width:640px){
+  /* the full line has to stay on one row at phone width, so it drops the wide mono caps */
+  .hero-hook{font-family:var(--font-sans);font-size:min(2.55vw,.72rem);letter-spacing:.005em;text-transform:none;font-weight:500;padding-inline:.5rem}
+}
 .hero-center{position:relative;z-index:10;display:flex;min-height:0;flex:1;align-items:center;justify-content:center}
 .hero-composite{position:relative;width:100%;transform:translateY(var(--composite-shift))}
 .hero-halo{position:absolute;left:50%;z-index:0;transform:translateX(-50%);bottom:var(--portrait-drop);height:calc(var(--portrait-height) * 1.25);width:calc(var(--portrait-height) * 1.5);background:radial-gradient(50% 50% at 50% 55%,rgba(154,104,64,.13) 0%,rgba(154,104,64,.05) 45%,rgba(154,104,64,0) 72%);pointer-events:none}

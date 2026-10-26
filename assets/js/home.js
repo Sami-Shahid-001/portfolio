@@ -69,7 +69,7 @@
       .to('.hero-khattak', { xPercent: 9, duration: 0.38 }, 0.12)
       .to('.hero-portrait-inner', { scale: 1.16, duration: 0.7 }, 0.1)
       .to('.hero-portrait-inner', { yPercent: -18, duration: 0.45 }, 0.35)
-      .to(['.hero-top', '.hero-supporting'], { opacity: 0, y: -18, duration: 0.34 }, 0.2)
+      .to(['.hero-top', '.hero-hook', '.hero-supporting'], { opacity: 0, y: -18, duration: 0.34 }, 0.2)
       .to(rail, { x: 28, opacity: 0, duration: 0.34 }, 0.2)
       .to('.hero-night', { opacity: 1, duration: 0.27 }, 0.35)
       .to('.hero .day-copy', { opacity: 0, duration: 0.27 }, 0.35)
@@ -122,6 +122,7 @@
     const section = $('.scene-stats');
     const slides = $$('.stat-slide', section);
     const bar = $('.stat-progress', section);
+    const counter = $('.stat-count', section);
     const parts = (s) => [$('.stat-value', s), $('.stat-meta', s)];
     slides.forEach((s, i) => gsap.set(parts(s), { yPercent: i ? 118 : 0, y: 0 }));
     if (reduceMotion) {
@@ -135,6 +136,7 @@
         gsap.to(parts(slides[prev]), { yPercent: -118 * dir, duration: 0.8, ease: 'power3.inOut', stagger: 0.05, overwrite: true });
         gsap.fromTo(parts(slides[next]), { yPercent: 118 * dir }, { yPercent: 0, duration: 1, ease: EXPO, stagger: 0.07, delay: 0.18, overwrite: true });
         bar.style.transform = `scaleX(${(next + 1) / slides.length})`;
+        counter.textContent = String(next + 1).padStart(2, '0');
       },
     });
     return { st, count: slides.length };
@@ -227,9 +229,12 @@
     if (!lenis || reduceMotion || !scenes.length) return;
 
     const GAP = 170;        // ms of silence that ends a wheel gesture
-    const LOCK = 780;       // ms after a step during which all input is absorbed
-    const DURATION = 0.72;  // s for the scroll between two items
-    const TOUCH_STEP = 36;  // px of finger travel that counts as a swipe
+    const LOCK = 780;       // ms after a step during which all input is absorbed (wheel)
+    const DURATION = 0.72;  // s for the scroll between two items (wheel)
+    const TOUCH_LOCK = 520; // phones get a quicker rhythm: people swipe faster than they spin a wheel
+    const TOUCH_DURATION = 0.5;
+    const TOUCH_STEP = 28;  // px of travel that counts as a swipe while the finger is down
+    const FLICK = 8;        // a quick flick may lift off sooner; this much travel still counts
     const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
     let lockUntil = 0;
@@ -252,11 +257,11 @@
     };
     const go = (s, i) => {
       const g = geo(s);
-      lockUntil = performance.now() + LOCK;
+      const touch = lastInput === 'touch';
+      lockUntil = performance.now() + (touch ? TOUCH_LOCK : LOCK);
       gesture = 'used';
       held = { s, i };
-      touchTravel = 0;
-      lenis.scrollTo(g.start + g.band * (i + 0.5), { duration: DURATION, easing: ease, force: true });
+      lenis.scrollTo(g.start + g.band * (i + 0.5), { duration: touch ? TOUCH_DURATION : DURATION, easing: ease, force: true });
     };
     // where is this movement taking us, relative to the scenes?
     const locate = (y, delta) => {
@@ -270,18 +275,29 @@
     };
     const position = () => (lenis.isScrolling === 'smooth' ? lenis.targetScroll : window.scrollY);
 
-    // at most one buffered step; it only moves within the scene it was asked in
-    let queued = null;
-    const queue = (dir, wait) => {
-      clearTimeout(queued);
-      queued = setTimeout(() => {
-        queued = null;
-        const y = position();
-        const s = scenes.find((sc) => y >= geo(sc).start - 2 && y <= geo(sc).last + 2);
-        if (!s) return;
-        const next = indexAt(s, y) + dir;
-        if (next >= 0 && next < s.count) go(s, next);
-      }, wait + 10);
+    // Swipes or clicks that arrive while an item is still animating in are buffered (up to three)
+    // and played one by one, so quick repeated swipes each move one item instead of being lost.
+    // Buffered steps only move within the scene they were asked in.
+    let pending = 0;
+    let timer = null;
+    const flush = () => {
+      timer = null;
+      if (!pending) return;
+      const wait = lockUntil - performance.now();
+      if (wait > 0) { timer = setTimeout(flush, wait + 10); return; }
+      const dir = Math.sign(pending);
+      pending -= dir;
+      const y = position();
+      const s = scenes.find((sc) => y >= geo(sc).start - 2 && y <= geo(sc).last + 2);
+      const next = s ? indexAt(s, y) + dir : -1;
+      if (!s || next < 0 || next >= s.count) { pending = 0; return; }
+      go(s, next);
+      if (pending) timer = setTimeout(flush, (lastInput === 'touch' ? TOUCH_LOCK : LOCK) + 10);
+    };
+    const queue = (dir) => {
+      if (Math.sign(pending) && Math.sign(pending) !== dir) pending = 0; // a change of direction cancels the backlog
+      pending = Math.max(-3, Math.min(3, pending + dir));
+      if (!timer) timer = setTimeout(flush, Math.max(0, lockUntil - performance.now()) + 10);
     };
 
     // a wheel event starts a new gesture after a pause, or when the input clearly speeds up again
@@ -309,9 +325,9 @@
       // while a step is animating, nothing may interrupt it, including input from outside the scene.
       // A separate gesture arriving now (a second wheel click, a key press) is kept for when it ends.
       if (now < lockUntil) {
-        if (isWheel && gesture === 'fresh') {
+        if (gesture === 'fresh' && (isWheel || Math.abs(touchTravel) >= TOUCH_STEP)) {
           gesture = 'used';
-          queue(Math.sign(delta), lockUntil - now);
+          queue(Math.sign(isWheel ? delta : touchTravel));
         }
         return block();
       }
@@ -324,14 +340,35 @@
       }
       if (gesture === 'used') return block();
       if (gesture === 'released') return true;
-      if (!isWheel && Math.abs(touchTravel) < TOUCH_STEP) return block(); // hold until it is clearly a swipe
-      const next = indexAt(hit.s, y) + Math.sign(delta);
+      const dir = Math.sign(isWheel ? delta : touchTravel || delta);
+      const next = indexAt(hit.s, y) + dir;
+      // heading out past the first or last item: let the page scroll on straight away
       if (next < 0 || next >= hit.s.count) {
         gesture = 'released';
         return true;
       }
+      if (!isWheel && Math.abs(touchTravel) < TOUCH_STEP) return block(); // hold until it is clearly a swipe
       go(hit.s, next);
       return block();
+    };
+
+    // a quick flick can lift off before reaching TOUCH_STEP; it still counts as one swipe
+    const flickEnd = () => {
+      if (gesture !== 'fresh' || Math.abs(touchTravel) < FLICK) return false;
+      const dir = Math.sign(touchTravel);
+      const now = performance.now();
+      if (now < lockUntil) {
+        gesture = 'used';
+        queue(dir);
+        return true;
+      }
+      const y = position();
+      const s = scenes.find((sc) => y >= geo(sc).start - 2 && y <= geo(sc).last + 2);
+      if (!s) return false;
+      const next = indexAt(s, y) + dir;
+      if (next < 0 || next >= s.count) return false;
+      go(s, next);
+      return true;
     };
 
     window.Site.addInputGuard(({ deltaY, event }) => {
@@ -340,15 +377,16 @@
       // Lenis treats any touch it sees as the user taking over and stops running animations,
       // so touches that belong to a step (or land while one is animating) are kept from it.
       if (type === 'touchstart') {
+        // every new finger is a new swipe, even while the previous item is still arriving
         lastInput = 'touch';
         touching = true;
         touchTravel = 0;
-        if (performance.now() < lockUntil) return false;
         gesture = 'fresh';
-        return true;
+        return performance.now() >= lockUntil;
       }
       if (type === 'touchend') {
         touching = false;
+        flickEnd();
         return !(gesture === 'used' || performance.now() < lockUntil);
       }
       if (!deltaY) return true;
