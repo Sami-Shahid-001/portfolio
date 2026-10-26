@@ -2,6 +2,8 @@
 (() => {
   const root = document.documentElement;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // phones and tablets scroll natively (no wheel smoothing), so scroll-linked tweens add their own easing there
+  const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   const hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
 
   if (!hasGsap) {
@@ -64,8 +66,10 @@
   const navDot = document.querySelector('.nav-dot');
   let toneRegions = [];
   let anchors = [];
+  let maxScroll = 1; // measured on refresh; reading scrollHeight per frame forces a layout
 
   const measure = () => {
+    maxScroll = Math.max(1, document.documentElement.scrollHeight - vh());
     toneRegions = [...document.querySelectorAll('[data-tone]:not(.site-header)')].map((el) => {
       const top = docTop(el);
       return { top, bottom: top + el.offsetHeight, tone: el.dataset.tone === 'night' ? 'night' : 'day' };
@@ -106,8 +110,7 @@
     if (header.dataset.tone !== tone) header.dataset.tone = tone;
 
     if (progress) {
-      const max = document.documentElement.scrollHeight - vh();
-      progress.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
+      progress.style.transform = `scaleX(${Math.min(1, y / maxScroll)})`;
     }
 
     if (anchors.length) {
@@ -225,7 +228,7 @@
 
   const addInputGuard = (fn) => inputGuards.push(fn);
 
-  window.Site = { lenis, reduceMotion, scrollToY, anchorY, refresh, setupReveals, vh, state, addInputGuard };
+  window.Site = { lenis, reduceMotion, isTouch, scrollToY, anchorY, refresh, setupReveals, vh, state, addInputGuard };
 
   // Pages register their own timelines, then call Site.ready().
   window.Site.ready = () => {

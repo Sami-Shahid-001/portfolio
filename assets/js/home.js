@@ -1,7 +1,9 @@
 /* Home page scenes. Everything animates transform/opacity only. */
 (() => {
   if (!window.Site || typeof gsap === 'undefined') return;
-  const { reduceMotion } = window.Site;
+  const { reduceMotion, isTouch } = window.Site;
+  // wheel input is already smoothed by Lenis; native touch scrolling is not, so tweens trail it slightly
+  const SCRUB = isTouch ? 0.6 : true;
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const EXPO = 'expo.out';
@@ -61,7 +63,7 @@
     if (reduceMotion) return;
     gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom bottom', scrub: true },
+      scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom bottom', scrub: SCRUB },
     })
       .to('.hero-rafay', { xPercent: -9, duration: 0.38 }, 0.12)
       .to('.hero-khattak', { xPercent: 9, duration: 0.38 }, 0.12)
@@ -84,7 +86,7 @@
     gsap.set('.about-line', { yPercent: 106, y: 0 });
     gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: '#about', start: 'top -78%', end: 'bottom bottom', scrub: true },
+      scrollTrigger: { trigger: '#about', start: 'top -78%', end: 'bottom bottom', scrub: SCRUB },
     })
       .to('.about-line', { yPercent: 0, duration: 0.2, stagger: 0.09, ease: 'power3.out' }, 0)
       .to('.about-rule', { scaleX: 1, duration: 0.3, ease: 'power2.inOut' }, 0.42)
@@ -144,8 +146,12 @@
     const atmos = $$('.project-atmosphere', section);
     const bar = $('.work-progress', section);
     const count = $('.work-count', section);
-    const lines = (s) => $$('.copy-line, .project-index', s);
-    const visual = (s) => $('.project-visual', s);
+    // looked up once: slide changes happen mid-scroll and must stay cheap
+    const lineCache = new Map(slides.map((s) => [s, $$('.copy-line, .project-index', s)]));
+    const visualCache = new Map(slides.map((s) => [s, $('.project-visual', s)]));
+    const lines = (s) => lineCache.get(s);
+    const visual = (s) => visualCache.get(s);
+    const live = new Set(); // slides that may still have tweens running
 
     slides.forEach((s, i) => {
       s.classList.toggle('is-current', i === 0);
@@ -174,22 +180,29 @@
       }
 
       // anything that is neither leaving nor arriving is put away immediately
-      slides.forEach((s, i) => {
-        if (i !== next && i !== prev) {
+      live.forEach((s) => {
+        if (s !== out && s !== inn) {
           gsap.killTweensOf([...lines(s), visual(s)]);
           s.classList.remove('is-current');
+          live.delete(s);
         }
       });
+      live.add(out).add(inn);
       gsap.killTweensOf([...lines(out), visual(out), ...lines(inn), visual(inn)]);
       gsap.delayedCall(0.85, () => out !== slides[current] && out.classList.remove('is-current'));
       gsap.timeline()
         .to(lines(out), { yPercent: -115 * dir, duration: 0.7, ease: 'power3.in', stagger: 0.025 }, 0)
         .to(visual(out), { clipPath: dir > 0 ? 'inset(0% 0% 100% 0%)' : 'inset(100% 0% 0% 0%)', scale: 0.96, duration: 0.8, ease: 'power3.inOut' }, 0);
 
-      inn.classList.add('is-current');
-      gsap.timeline()
-        .fromTo(visual(inn), { clipPath: dir > 0 ? 'inset(100% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)', scale: 1.12 }, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, duration: 1.15, ease: EXPO }, 0.32)
-        .fromTo(lines(inn), { yPercent: 115 * dir }, { yPercent: 0, duration: 1.05, ease: EXPO, stagger: 0.045 }, 0.42);
+      // the incoming slide only starts moving after ~0.3s, so it is set up in a later frame
+      // than the outgoing one; that keeps the frame the scroll crosses the boundary light
+      gsap.delayedCall(0.3, () => {
+        if (inn !== slides[current]) return;
+        inn.classList.add('is-current');
+        gsap.timeline()
+          .fromTo(visual(inn), { clipPath: dir > 0 ? 'inset(100% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)', scale: 1.12 }, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, duration: 1.15, ease: EXPO }, 0.02)
+          .fromTo(lines(inn), { yPercent: 115 * dir }, { yPercent: 0, duration: 1.05, ease: EXPO, stagger: 0.045 }, 0.12);
+      });
     };
 
     let current = 0;
@@ -223,6 +236,8 @@
     let lastWheel = 0;
     let gesture = 'fresh'; // fresh → used (stepped) | released (left the scene)
     let touchTravel = 0;
+    let touching = false;
+    let held = null; // { s, i } — the item the last step landed on
     let lastInput = 'wheel';
     let prevY = lenis.scroll;
     const recent = [];
@@ -239,6 +254,7 @@
       const g = geo(s);
       lockUntil = performance.now() + LOCK;
       gesture = 'used';
+      held = { s, i };
       touchTravel = 0;
       lenis.scrollTo(g.start + g.band * (i + 0.5), { duration: DURATION, easing: ease, force: true });
     };
@@ -325,12 +341,16 @@
       // so touches that belong to a step (or land while one is animating) are kept from it.
       if (type === 'touchstart') {
         lastInput = 'touch';
+        touching = true;
         touchTravel = 0;
         if (performance.now() < lockUntil) return false;
         gesture = 'fresh';
         return true;
       }
-      if (type === 'touchend') return !(gesture === 'used' || performance.now() < lockUntil);
+      if (type === 'touchend') {
+        touching = false;
+        return !(gesture === 'used' || performance.now() < lockUntil);
+      }
       if (!deltaY) return true;
       if (type === 'wheel') {
         lastInput = 'wheel';
@@ -358,11 +378,20 @@
     // a native fling (touch) that carries into a scene is caught at its first or last item
     lenis.on('scroll', () => {
       const y = lenis.scroll;
-      if (lastInput === 'touch' && !window.Site.state.programmatic && performance.now() >= lockUntil) {
+      // a jump of a screen or more in one frame is a programmatic jump, not a fling
+      if (lastInput === 'touch' && !window.Site.state.programmatic && performance.now() >= lockUntil && Math.abs(y - prevY) < window.innerHeight) {
+        let caught = false;
         for (const s of scenes) {
           const g = geo(s);
-          if (prevY < g.start - 2 && y >= g.start - 2) { go(s, 0); break; }
-          if (prevY > g.last + 2 && y <= g.last + 2) { go(s, s.count - 1); break; }
+          if (prevY < g.start - 2 && y >= g.start - 2) { go(s, 0); caught = true; break; }
+          if (prevY > g.last + 2 && y <= g.last + 2) { go(s, s.count - 1); caught = true; break; }
+        }
+        // momentum still coasting after a step landed (iOS keeps flinging): hold the item
+        if (!caught && !touching && gesture === 'used' && held && lenis.isScrolling === 'native') {
+          const g = geo(held.s);
+          const target = g.start + g.band * (held.i + 0.5);
+          // covers the scene's whole pinned range, so a coast can't carry past the first or last item either
+          if (Math.abs(y - target) > 4 && y >= g.start - g.band && y <= held.s.st.end + 2) go(held.s, held.i);
         }
       }
       prevY = y;
@@ -473,11 +502,11 @@
     gsap.set('.contact-line', { yPercent: 106, y: 0 });
     gsap.to('.contact-line', {
       yPercent: 0, ease: 'none', stagger: 0.12,
-      scrollTrigger: { trigger: '.contact-title', start: 'top 92%', end: 'top 45%', scrub: true },
+      scrollTrigger: { trigger: '.contact-title', start: 'top 92%', end: 'top 45%', scrub: SCRUB },
     });
     gsap.fromTo('.footer-line', { yPercent: 30 }, {
       yPercent: 0, ease: 'none', stagger: 0.1,
-      scrollTrigger: { trigger: '.footer-name', start: 'top bottom', end: 'bottom bottom', scrub: true },
+      scrollTrigger: { trigger: '.footer-name', start: 'top bottom', end: 'bottom bottom', scrub: SCRUB },
     });
   };
 
