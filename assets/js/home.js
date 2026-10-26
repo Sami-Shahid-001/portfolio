@@ -255,14 +255,41 @@
       const g = geo(s);
       return Math.max(0, Math.min(s.count - 1, Math.floor((y - g.start) / g.band)));
     };
+    // Phones keep coasting after the finger lifts, and a snap animated on top of that coast makes
+    // the two fight frame by frame (the "shake"). Briefly hiding the page's overflow stops the coast
+    // dead on iOS and Android; programmatic scrolling still works while it is hidden.
+    let unfreeze = 0;
+    const stopCoasting = () => {
+      const html = document.documentElement;
+      html.style.overflow = 'hidden';
+      clearTimeout(unfreeze);
+      unfreeze = setTimeout(() => (html.style.overflow = ''), 80);
+    };
+    let settledAt = 0; // when the current item finished arriving
     const go = (s, i) => {
       const g = geo(s);
       const touch = lastInput === 'touch';
-      lockUntil = performance.now() + (touch ? TOUCH_LOCK : LOCK);
+      const target = g.start + g.band * (i + 0.5);
+      const now = performance.now();
       gesture = 'used';
+      // already gliding to this exact item: restarting the animation would only make it jitter
+      if (held && held.s === s && held.i === i && lenis.isScrolling === 'smooth' && now < lockUntil) return;
+      if (touch) stopCoasting();
+      const duration = touch ? TOUCH_DURATION : DURATION;
+      lockUntil = now + (touch ? TOUCH_LOCK : LOCK);
+      settledAt = now + duration * 1000;
       held = { s, i };
-      lenis.scrollTo(g.start + g.band * (i + 0.5), { duration: touch ? TOUCH_DURATION : DURATION, easing: ease, force: true });
+      lenis.scrollTo(target, { duration, easing: ease, force: true });
     };
+    // a burst of quick swipes that reaches the first or last item stays there; leaving the scene
+    // takes a fresh swipe once that item has settled
+    // "Settled" means this gesture began after a real pause: the item had finished arriving and the
+    // previous swipe had ended at least SETTLE ms earlier. A continuous run of fast swipes never is.
+    const SETTLE = 380;
+    let gestureStart = 0;
+    let quietBefore = Infinity;
+    let lastTouchEnd = -Infinity;
+    const settled = () => gestureStart - Math.max(settledAt, lockUntil) >= SETTLE && quietBefore >= SETTLE;
     // where is this movement taking us, relative to the scenes?
     const locate = (y, delta) => {
       for (const s of scenes) {
@@ -342,8 +369,13 @@
       if (gesture === 'released') return true;
       const dir = Math.sign(isWheel ? delta : touchTravel || delta);
       const next = indexAt(hit.s, y) + dir;
-      // heading out past the first or last item: let the page scroll on straight away
+      // heading out past the first or last item: let the page scroll on, unless the item has only
+      // just arrived (part of a fast run of swipes), in which case the rest of this gesture is absorbed
       if (next < 0 || next >= hit.s.count) {
+        if (!settled()) {
+          gesture = 'used';
+          return block();
+        }
         gesture = 'released';
         return true;
       }
@@ -382,10 +414,13 @@
         touching = true;
         touchTravel = 0;
         gesture = 'fresh';
+        gestureStart = performance.now();
+        quietBefore = gestureStart - lastTouchEnd;
         return performance.now() >= lockUntil;
       }
       if (type === 'touchend') {
         touching = false;
+        lastTouchEnd = performance.now();
         flickEnd();
         return !(gesture === 'used' || performance.now() < lockUntil);
       }
@@ -393,7 +428,11 @@
       if (type === 'wheel') {
         lastInput = 'wheel';
         const now = performance.now();
-        if (freshWheel(now, Math.abs(deltaY))) gesture = 'fresh';
+        if (freshWheel(now, Math.abs(deltaY))) {
+          gesture = 'fresh';
+          gestureStart = now;
+          quietBefore = now - lastWheel;
+        }
         lastWheel = now;
         return handle(deltaY, event, true);
       }
@@ -410,10 +449,13 @@
       if (e.key === ' ' && e.shiftKey) dir = -1;
       const amount = e.key.startsWith('Arrow') ? 60 : window.innerHeight * 0.85;
       gesture = 'fresh';
+      gestureStart = performance.now();
+      quietBefore = Infinity;
       handle(dir * amount, e, true);
     });
 
     // a native fling (touch) that carries into a scene is caught at its first or last item
+    let holdTimer = 0;
     lenis.on('scroll', () => {
       const y = lenis.scroll;
       // a jump of a screen or more in one frame is a programmatic jump, not a fling
@@ -424,12 +466,20 @@
           if (prevY < g.start - 2 && y >= g.start - 2) { go(s, 0); caught = true; break; }
           if (prevY > g.last + 2 && y <= g.last + 2) { go(s, s.count - 1); caught = true; break; }
         }
-        // momentum still coasting after a step landed (iOS keeps flinging): hold the item
+        // momentum still coasting after a step landed: stop the coast and settle back on the item once,
+        // rather than re-snapping on every scroll event (which is what made it shake)
         if (!caught && !touching && gesture === 'used' && held && lenis.isScrolling === 'native') {
           const g = geo(held.s);
           const target = g.start + g.band * (held.i + 0.5);
           // covers the scene's whole pinned range, so a coast can't carry past the first or last item either
-          if (Math.abs(y - target) > 4 && y >= g.start - g.band && y <= held.s.st.end + 2) go(held.s, held.i);
+          if (Math.abs(y - target) > 4 && y >= g.start - g.band && y <= held.s.st.end + 2) {
+            stopCoasting();
+            clearTimeout(holdTimer);
+            holdTimer = setTimeout(() => {
+              const now = window.scrollY;
+              if (!touching && held && Math.abs(now - target) > 4) go(held.s, held.i);
+            }, 60);
+          }
         }
       }
       prevY = y;
